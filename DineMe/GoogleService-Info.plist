@@ -7,9 +7,9 @@
 	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
 	<string>ca-app-pub-3940256099942544/4411468910</string>
 	<key>CLIENT_ID</key>
-	<string>469871050100-ogcjrm2fh3nrs1dduu10smqkhtrks0vb.apps.googleusercontent.com</string>
+	<string>469871050100-8tb139ad4gb5corv5e7c5sgi4b4nfi5d.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.469871050100-ogcjrm2fh3nrs1dduu10smqkhtrks0vb</string>
+	<string>com.googleusercontent.apps.469871050100-8tb139ad4gb5corv5e7c5sgi4b4nfi5d</string>
 	<key>API_KEY</key>
 	<string>AIzaSyCociGLl-OpB_dQ6qrGrxjmiHQeungdMhM</string>
 	<key>GCM_SENDER_ID</key>
@@ -17,7 +17,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.KyleWang.CoreDataTest.DineMe</string>
+	<string>com.KyleWang.DineMe</string>
 	<key>PROJECT_ID</key>
 	<string>dineme-bdea9</string>
 	<key>STORAGE_BUCKET</key>
@@ -33,7 +33,7 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:469871050100:ios:71382f7ce38598e3</string>
+	<string>1:469871050100:ios:dd24df34b27e23ab</string>
 	<key>DATABASE_URL</key>
 	<string>https://dineme-bdea9.firebaseio.com</string>
 </dict>

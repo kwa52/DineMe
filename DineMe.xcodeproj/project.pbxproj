@@ -8,25 +8,27 @@
 
 /* Begin PBXBuildFile section */
 		3546B2ED2048A2630054F9BB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3546B2EC2048A2630054F9BB /* AppDelegate.swift */; };
-		3546B2EF2048A2630054F9BB /* LandingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3546B2EE2048A2630054F9BB /* LandingViewController.swift */; };
+		3546B2EF2048A2630054F9BB /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3546B2EE2048A2630054F9BB /* LogInViewController.swift */; };
 		3546B2F22048A2630054F9BB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3546B2F02048A2630054F9BB /* Main.storyboard */; };
 		3546B2F42048A2630054F9BB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3546B2F32048A2630054F9BB /* Assets.xcassets */; };
 		3546B2F72048A2630054F9BB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3546B2F52048A2630054F9BB /* LaunchScreen.storyboard */; };
-		3546B2FF2048A5D20054F9BB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3546B2FE2048A5D20054F9BB /* GoogleService-Info.plist */; };
 		3546B3072048A8A70054F9BB /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3546B3062048A8A70054F9BB /* SignUpViewController.swift */; };
+		3546B3272048F2E10054F9BB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3546B3262048F2E10054F9BB /* GoogleService-Info.plist */; };
+		3546B3292048F7580054F9BB /* CategoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3546B3282048F7580054F9BB /* CategoryTableViewController.swift */; };
 		42AD9511947A4614ED2F591B /* Pods_DineMe.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 697F0BE57368F12964E69CEB /* Pods_DineMe.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		3546B2E92048A2620054F9BB /* DineMe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DineMe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3546B2EC2048A2630054F9BB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		3546B2EE2048A2630054F9BB /* LandingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingViewController.swift; sourceTree = "<group>"; };
+		3546B2EE2048A2630054F9BB /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 		3546B2F12048A2630054F9BB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3546B2F32048A2630054F9BB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3546B2F62048A2630054F9BB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3546B2F82048A2630054F9BB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		3546B2FE2048A5D20054F9BB /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		3546B3062048A8A70054F9BB /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		3546B3262048F2E10054F9BB /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		3546B3282048F7580054F9BB /* CategoryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryTableViewController.swift; sourceTree = "<group>"; };
 		49612E9FA068338BF7DD7830 /* Pods-DineMe.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DineMe.release.xcconfig"; path = "Pods/Target Support Files/Pods-DineMe/Pods-DineMe.release.xcconfig"; sourceTree = "<group>"; };
 		697F0BE57368F12964E69CEB /* Pods_DineMe.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DineMe.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC19570793CB4981832428CB /* Pods-DineMe.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DineMe.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DineMe/Pods-DineMe.debug.xcconfig"; sourceTree = "<group>"; };
@@ -79,6 +81,7 @@
 				3546B3022048A72D0054F9BB /* Controller */,
 				3546B3032048A7780054F9BB /* Supporting Files */,
 				3546B2F82048A2630054F9BB /* Info.plist */,
+				3546B3262048F2E10054F9BB /* GoogleService-Info.plist */,
 			);
 			path = DineMe;
 			sourceTree = "<group>";
@@ -103,8 +106,9 @@
 			isa = PBXGroup;
 			children = (
 				3546B2EC2048A2630054F9BB /* AppDelegate.swift */,
-				3546B2EE2048A2630054F9BB /* LandingViewController.swift */,
+				3546B2EE2048A2630054F9BB /* LogInViewController.swift */,
 				3546B3062048A8A70054F9BB /* SignUpViewController.swift */,
+				3546B3282048F7580054F9BB /* CategoryTableViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -113,7 +117,6 @@
 			isa = PBXGroup;
 			children = (
 				3546B2F32048A2630054F9BB /* Assets.xcassets */,
-				3546B2FE2048A5D20054F9BB /* GoogleService-Info.plist */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -189,7 +192,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3546B2F72048A2630054F9BB /* LaunchScreen.storyboard in Resources */,
-				3546B2FF2048A5D20054F9BB /* GoogleService-Info.plist in Resources */,
+				3546B3272048F2E10054F9BB /* GoogleService-Info.plist in Resources */,
 				3546B2F42048A2630054F9BB /* Assets.xcassets in Resources */,
 				3546B2F22048A2630054F9BB /* Main.storyboard in Resources */,
 			);
@@ -205,12 +208,16 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-DineMe/Pods-DineMe-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -258,9 +265,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3546B2EF2048A2630054F9BB /* LandingViewController.swift in Sources */,
+				3546B2EF2048A2630054F9BB /* LogInViewController.swift in Sources */,
 				3546B2ED2048A2630054F9BB /* AppDelegate.swift in Sources */,
 				3546B3072048A8A70054F9BB /* SignUpViewController.swift in Sources */,
+				3546B3292048F7580054F9BB /* CategoryTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -402,7 +410,7 @@
 				DEVELOPMENT_TEAM = UGC6L7VCAJ;
 				INFOPLIST_FILE = DineMe/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.KyleWang.CoreDataTest.DineMe;
+				PRODUCT_BUNDLE_IDENTIFIER = com.KyleWang.DineMe;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -418,7 +426,7 @@
 				DEVELOPMENT_TEAM = UGC6L7VCAJ;
 				INFOPLIST_FILE = DineMe/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.KyleWang.CoreDataTest.DineMe;
+				PRODUCT_BUNDLE_IDENTIFIER = com.KyleWang.DineMe;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
