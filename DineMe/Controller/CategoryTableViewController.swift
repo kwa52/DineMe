@@ -13,16 +13,15 @@ import SwipeCellKit
 class CategoryTableViewController: UITableViewController {
     
     let realm = try! Realm()
-    let realmFolderPath = Realm.Configuration.defaultConfiguration.fileURL!
+//    let realmFolderPath = Realm.Configuration.defaultConfiguration.fileURL!
     
     var categories : Results<Category>?
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
        
 //        tableView.separatorStyle = .none
-        print("FILE PATH --- ", realmFolderPath)
+//        print("FILE PATH --- ", realmFolderPath)
         
         loadData()
     }
@@ -59,6 +58,21 @@ class CategoryTableViewController: UITableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
         
         performSegue(withIdentifier: "goToRestaurants", sender: self)
+    }
+    
+    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
+        return .none
+    }
+    
+    override func tableView(_ tableView: UITableView, shouldIndentWhileEditingRowAt indexPath: IndexPath) -> Bool {
+        return false
+    }
+    
+    override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        
+//        categories?.remove(at: sourceIndexPath.row)
+//        categories?.insert(movedObject, at: destinationIndexPath.row)
+        // To check for correctness enable: self.tableView.reloadData()
     }
     
     // Add new category
@@ -165,10 +179,16 @@ extension CategoryTableViewController: SwipeTableViewCellDelegate {
             }
         }
         
+        let moreAction = SwipeAction(style: .default, title: nil) { action, indexPath in
+            self.tableView.isEditing = true
+        }
+        
         // customize the action appearance
         deleteAction.image = UIImage(named: "delete-icon")
+        moreAction.image = UIImage(named: "more-icon")
+        moreAction.hidesWhenSelected = true
         
-        return [deleteAction]
+        return [deleteAction, moreAction]
     }
     
     func tableView(_ tableView: UITableView, editActionsOptionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> SwipeTableOptions {
