@@ -12,6 +12,8 @@ import SwipeCellKit
 
 class RestaurantTableViewController: UITableViewController {
     
+    @IBOutlet weak var searchBar: UISearchBar!
+    
     let realm = try! Realm()
     
     var restaurants : Results<Restaurant>?
@@ -23,6 +25,9 @@ class RestaurantTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        searchBar.delegate = self
+        searchBar.placeholder = "Search restaurants"
     }
 
     override func didReceiveMemoryWarning() {
@@ -41,10 +46,11 @@ class RestaurantTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let formatter = DateFormatter()
+        let formatDate : String?
         let cell = tableView.dequeueReusableCell(withIdentifier: "restaurantCell", for: indexPath) as! SwipeTableViewCell
         
         formatter.dateFormat = "dd-MMM-yyyy"
-        let formatDate = formatter.string(from: (restaurants?[indexPath.row].dateCreated)!)
+        formatDate = formatter.string(from: (restaurants?[indexPath.row].dateCreated)!)
         
         cell.textLabel?.text = restaurants?[indexPath.row].name
         cell.detailTextLabel?.text = formatDate
@@ -123,7 +129,7 @@ class RestaurantTableViewController: UITableViewController {
     //
     
     func loadData() {
-        restaurants = selectedCategory?.restaurants.sorted(byKeyPath: "name", ascending: true)
+        restaurants = selectedCategory?.restaurants.sorted(byKeyPath: "dateCreated", ascending: true)
         tableView.reloadData()
     }
     
@@ -164,7 +170,12 @@ class RestaurantTableViewController: UITableViewController {
 
 }
 
-extension RestaurantTableViewController: SwipeTableViewCellDelegate {
+
+extension RestaurantTableViewController: SwipeTableViewCellDelegate, UISearchBarDelegate {
+    
+    //
+    //MARK: - Swipe Cell Kit Methods
+    //
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
         guard orientation == .right else { return nil }
@@ -200,5 +211,30 @@ extension RestaurantTableViewController: SwipeTableViewCellDelegate {
         options.expansionStyle = .destructive
         options.transitionStyle = .border
         return options
+    }
+    
+    //
+    //MARK: - Search Bar Methods
+    //
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        
+        let predicate = NSPredicate(format: "name CONTAINS %@", argumentArray: [searchBar.text!])
+        
+        restaurants = restaurants?.filter(predicate)
+        restaurants = restaurants?.sorted(byKeyPath: "dateCreated", ascending: true)
+        
+        tableView.reloadData()
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchBar.text?.count == 0 {
+            loadData()
+            
+            DispatchQueue.main.async {
+                // dismiss the keyboard and cursor on the search bar
+                searchBar.resignFirstResponder()
+            }
+        }
     }
 }
