@@ -13,7 +13,7 @@ import SwipeCellKit
 class CategoryTableViewController: UITableViewController {
     
     let realm = try! Realm()
-//    let realmFolderPath = Realm.Configuration.defaultConfiguration.fileURL!
+    let realmFolderPath = Realm.Configuration.defaultConfiguration.fileURL!
     
     var categories : Results<Category>?
 
@@ -21,7 +21,7 @@ class CategoryTableViewController: UITableViewController {
         super.viewDidLoad()
        
 //        tableView.separatorStyle = .none
-//        print("FILE PATH --- ", realmFolderPath)
+        print("FILE PATH --- ", realmFolderPath)
         
         loadData()
     }

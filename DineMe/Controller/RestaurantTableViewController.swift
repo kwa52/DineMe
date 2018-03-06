@@ -23,8 +23,6 @@ class RestaurantTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        print("Selected Category is ", selectedCategory?.title)
     }
 
     override func didReceiveMemoryWarning() {
@@ -42,8 +40,14 @@ class RestaurantTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let formatter = DateFormatter()
         let cell = tableView.dequeueReusableCell(withIdentifier: "restaurantCell", for: indexPath) as! SwipeTableViewCell
+        
+        formatter.dateFormat = "dd-MMM-yyyy"
+        let formatDate = formatter.string(from: (restaurants?[indexPath.row].dateCreated)!)
+        
         cell.textLabel?.text = restaurants?[indexPath.row].name
+        cell.detailTextLabel?.text = formatDate
         
         cell.delegate = self
 
@@ -88,7 +92,7 @@ class RestaurantTableViewController: UITableViewController {
         let action = UIAlertAction(title: "Action Title", style: .default) { (action) in
             let newRestaurant = Restaurant()
             newRestaurant.name = userInput.text!
-            
+            newRestaurant.dateCreated = Date()
             do {
                 try self.realm.write {
                     self.realm.add(newRestaurant)
@@ -119,7 +123,6 @@ class RestaurantTableViewController: UITableViewController {
     //
     
     func loadData() {
-//        restaurants = realm.objects(Restaurant.self)
         restaurants = selectedCategory?.restaurants.sorted(byKeyPath: "name", ascending: true)
         tableView.reloadData()
     }
