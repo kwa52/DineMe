@@ -1,8 +1,8 @@
 //
-//  CategoryTableViewController.swift
+//  RestaurantTableViewController.swift
 //  DineMe
 //
-//  Created by Kyle Wang on 2018-03-01.
+//  Created by Kyle Wang on 2018-03-05.
 //  Copyright © 2018 Kyle Wang. All rights reserved.
 //
 
@@ -10,20 +10,21 @@ import UIKit
 import RealmSwift
 import SwipeCellKit
 
-class CategoryTableViewController: UITableViewController {
+class RestaurantTableViewController: UITableViewController {
     
     let realm = try! Realm()
-//    let realmFolderPath = Realm.Configuration.defaultConfiguration.fileURL!
     
-    var categories : Results<Category>?
+    var restaurants : Results<Restaurant>?
+    var selectedCategory : Category? {
+        didSet {
+            loadData()
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-       
-//        tableView.separatorStyle = .none
-//        print("FILE PATH --- ", realmFolderPath)
         
-        loadData()
+        print("Selected Category is ", selectedCategory?.title)
     }
 
     override func didReceiveMemoryWarning() {
@@ -32,40 +33,29 @@ class CategoryTableViewController: UITableViewController {
     }
 
     //
-    // MARK: - Table View Data Source Methods
+    // MARK: - Table view data source
     //
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return categories?.count ?? 1
+        return restaurants?.count ?? 1
     }
 
-    // ask data source to insert a cell at a row
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "categoryCell", for: indexPath) as! SwipeTableViewCell
-        cell.textLabel?.text = categories?[indexPath.row].title
+        let cell = tableView.dequeueReusableCell(withIdentifier: "restaurantCell", for: indexPath) as! SwipeTableViewCell
+        cell.textLabel?.text = restaurants?[indexPath.row].name
         
         cell.delegate = self
-        
+
         return cell
     }
     
     //
-    // MARK: - Table View Delegate Methods
+    //MARK: - Table View Delegate Methods
     //
-
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        tableView.deselectRow(at: indexPath, animated: true)
-        
-        performSegue(withIdentifier: "goToRestaurants", sender: self)
-    }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let destinationVC = segue.destination as! RestaurantTableViewController
-        
-        if let indexPath = tableView.indexPathForSelectedRow {
-            destinationVC.selectedCategory = categories?[indexPath.row]
-        }
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
@@ -78,39 +68,42 @@ class CategoryTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
         
-//        categories?.remove(at: sourceIndexPath.row)
-//        categories?.insert(movedObject, at: destinationIndexPath.row)
-        // To check for correctness enable: self.tableView.reloadData()
     }
     
-    // Add new category
+    
+    //
+    //MARK: - Utilities
+    //
+    
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
-        var userInput = UITextField()
-        let alert = UIAlertController(title: "New Category", message: "", preferredStyle: .alert)
         
+        var userInput = UITextField()
+        
+        let alert = UIAlertController(title: "Add Restaurant", message: "", preferredStyle: .alert)
         alert.addTextField { (textField) in
-            textField.placeholder = "Enter category name"
+            textField.placeholder = "Enter new restaurant name"
             userInput = textField
         }
         
-        let action = UIAlertAction(title: "Add", style: .default) { (action) in
-            let newCategory = Category()
-            newCategory.title = userInput.text!
+        let action = UIAlertAction(title: "Action Title", style: .default) { (action) in
+            let newRestaurant = Restaurant()
+            newRestaurant.name = userInput.text!
             
-            // write into Realm
             do {
                 try self.realm.write {
-                    self.realm.add(newCategory)
+                    self.realm.add(newRestaurant)
+                    self.selectedCategory?.restaurants.append(newRestaurant)
                 }
             } catch {
                 print(error)
             }
+            
             self.tableView.reloadData()
         }
         
         alert.addAction(action)
         
-        present(alert, animated: true) {
+        self.present(alert, animated: true) {
             alert.view.superview?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.alertControllerBackgroundTapped)))
         }
     }
@@ -126,18 +119,18 @@ class CategoryTableViewController: UITableViewController {
     //
     
     func loadData() {
-        
-        categories = realm.objects(Category.self)
+//        restaurants = realm.objects(Restaurant.self)
+        restaurants = selectedCategory?.restaurants.sorted(byKeyPath: "name", ascending: true)
         tableView.reloadData()
     }
-
     
-//    //Override to support conditional editing of the table view.
-//    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-//         //Return false if you do not want the specified item to be editable.
-//        return true
-//    }
-    
+    /*
+    // Override to support conditional editing of the table view.
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        // Return false if you do not want the specified item to be editable.
+        return true
+    }
+    */
 
     /*
     // Override to support editing the table view.
@@ -168,7 +161,7 @@ class CategoryTableViewController: UITableViewController {
 
 }
 
-extension CategoryTableViewController: SwipeTableViewCellDelegate {
+extension RestaurantTableViewController: SwipeTableViewCellDelegate {
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
         guard orientation == .right else { return nil }
@@ -176,10 +169,10 @@ extension CategoryTableViewController: SwipeTableViewCellDelegate {
         let deleteAction = SwipeAction(style: .destructive, title: nil) { action, indexPath in
             // handle action by updating model with deletion
             
-            if let categoryToDelete = self.categories?[indexPath.row] {
+            if let restaurantToDelete = self.restaurants?[indexPath.row] {
                 do {
                     try self.realm.write {
-                        self.realm.delete(categoryToDelete)
+                        self.realm.delete(restaurantToDelete)
                     }
                 } catch {
                     print(error)
@@ -205,5 +198,4 @@ extension CategoryTableViewController: SwipeTableViewCellDelegate {
         options.transitionStyle = .border
         return options
     }
-    
 }

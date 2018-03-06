@@ -14,4 +14,5 @@ class Restaurant: Object {
     @objc dynamic var cuisine : String = ""
     @objc dynamic var style : String = ""
     @objc dynamic var rating : Int = 0
+    var parent = LinkingObjects(fromType: Category.self, property: "restaurants")
 }
