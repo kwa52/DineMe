@@ -9,6 +9,7 @@
 import UIKit
 import RealmSwift
 import SwipeCellKit
+import SCLAlertView
 
 class RestaurantTableViewController: UITableViewController {
     
@@ -86,36 +87,34 @@ class RestaurantTableViewController: UITableViewController {
     //
     
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
+    
+        let alert = SCLAlertView()
+        let nameTextField = alert.addTextField("Restaurant Name")
+        let cuisineTextField = alert.addTextField("Enter type of cuisine")
+        let styleTextField = alert.addTextField("Enter style")
         
-        var userInput = UITextField()
-        
-        let alert = UIAlertController(title: "Add Restaurant", message: "", preferredStyle: .alert)
-        alert.addTextField { (textField) in
-            textField.placeholder = "Enter new restaurant name"
-            userInput = textField
-        }
-        
-        let action = UIAlertAction(title: "Action Title", style: .default) { (action) in
-            let newRestaurant = Restaurant()
-            newRestaurant.name = userInput.text!
-            newRestaurant.dateCreated = Date()
-            do {
-                try self.realm.write {
-                    self.realm.add(newRestaurant)
-                    self.selectedCategory?.restaurants.append(newRestaurant)
+        alert.addButton("Add") {
+            
+            if !(nameTextField.text?.isEmpty)! {
+                let newRestaurant = Restaurant(
+                    name: nameTextField.text!,
+                    cuisine: cuisineTextField.text!,
+                    style: styleTextField.text!
+                )
+                do {
+                    try self.realm.write {
+                        self.realm.add(newRestaurant)
+                        self.selectedCategory?.restaurants.append(newRestaurant)
+                    }
+                } catch {
+                    print(error)
                 }
-            } catch {
-                print(error)
             }
             
             self.tableView.reloadData()
         }
-        
-        alert.addAction(action)
-        
-        self.present(alert, animated: true) {
-            alert.view.superview?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.alertControllerBackgroundTapped)))
-        }
+    
+        alert.showEdit("New Restaurant", subTitle: "can be modified later")
     }
     
     // For dismissing UIAlert after add button pressed
@@ -129,7 +128,7 @@ class RestaurantTableViewController: UITableViewController {
     //
     
     func loadData() {
-        restaurants = selectedCategory?.restaurants.sorted(byKeyPath: "dateCreated", ascending: true)
+        restaurants = selectedCategory?.restaurants.sorted(byKeyPath: "dateCreated", ascending: false)
         tableView.reloadData()
     }
     
@@ -222,7 +221,7 @@ extension RestaurantTableViewController: SwipeTableViewCellDelegate, UISearchBar
         let predicate = NSPredicate(format: "name CONTAINS %@", argumentArray: [searchBar.text!])
         
         restaurants = restaurants?.filter(predicate)
-        restaurants = restaurants?.sorted(byKeyPath: "dateCreated", ascending: true)
+        restaurants = restaurants?.sorted(byKeyPath: "dateCreated", ascending: false)
         
         tableView.reloadData()
     }

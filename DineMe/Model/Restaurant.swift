@@ -10,10 +10,18 @@ import Foundation
 import RealmSwift
 
 class Restaurant: Object {
-    @objc dynamic var name : String = ""
+    @objc dynamic var name : String?
     @objc dynamic var cuisine : String = ""
     @objc dynamic var style : String = ""
-    @objc dynamic var rating : Int = 0
     @objc dynamic var dateCreated : Date?
     var parent = LinkingObjects(fromType: Category.self, property: "restaurants")
+    
+    
+    convenience required init(name: String, cuisine: String, style: String) {
+        self.init()
+        self.name = name
+        self.cuisine = cuisine
+        self.style = style
+        dateCreated = Date()
+    }
 }
