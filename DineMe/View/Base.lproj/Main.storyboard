@@ -393,11 +393,27 @@
                     </navigationItem>
                     <connections>
                         <outlet property="searchBar" destination="TTY-5v-1lc" id="bXN-W6-0FP"/>
+                        <segue destination="bXn-a8-hUm" kind="show" identifier="goToEditForm" id="TMt-lh-4iD"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8Db-rT-kdS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1732" y="134"/>
+        </scene>
+        <!--Restaurant Form View Controller-->
+        <scene sceneID="WJ2-D3-5rK">
+            <objects>
+                <viewController id="bXn-a8-hUm" customClass="RestaurantFormViewController" customModule="DineMe" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="hpK-gB-KoE">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="mTd-8Z-cea"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Sr8-zH-qdp" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2529" y="135"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>

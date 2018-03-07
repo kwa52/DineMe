@@ -27,6 +27,8 @@ class RestaurantTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        NotificationCenter.default.addObserver(self, selector: #selector(loadData), name: NSNotification.Name(rawValue: "load"), object: nil)
+        
         searchBar.delegate = self
         searchBar.placeholder = "Search restaurants"
     }
@@ -66,9 +68,19 @@ class RestaurantTableViewController: UITableViewController {
     //
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
+//        tableView.deselectRow(at: indexPath, animated: true)
+        
+        performSegue(withIdentifier: "goToEditForm", sender: self)
     }
-    
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let destinationVC = segue.destination as! RestaurantFormViewController
+        
+        if let indexPath = tableView.indexPathForSelectedRow {
+            destinationVC.selectedRestaurant = restaurants?[indexPath.row]
+        }
+    }
+
     override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
         return .none
     }
@@ -113,21 +125,14 @@ class RestaurantTableViewController: UITableViewController {
             
             self.tableView.reloadData()
         }
-    
         alert.showEdit("New Restaurant", subTitle: "can be modified later")
-    }
-    
-    // For dismissing UIAlert after add button pressed
-    @objc func alertControllerBackgroundTapped()
-    {
-        self.dismiss(animated: true, completion: nil)
     }
     
     //
     //MARK: - Database Methods
     //
     
-    func loadData() {
+    @objc func loadData() {
         restaurants = selectedCategory?.restaurants.sorted(byKeyPath: "dateCreated", ascending: false)
         tableView.reloadData()
     }
