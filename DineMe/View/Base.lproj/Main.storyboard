@@ -400,7 +400,7 @@
             </objects>
             <point key="canvasLocation" x="1732" y="134"/>
         </scene>
-        <!--Restaurant Form View Controller-->
+        <!--Title-->
         <scene sceneID="WJ2-D3-5rK">
             <objects>
                 <viewController id="bXn-a8-hUm" customClass="RestaurantFormViewController" customModule="DineMe" sceneMemberID="viewController">
@@ -410,6 +410,13 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="mTd-8Z-cea"/>
                     </view>
+                    <navigationItem key="navigationItem" title="Title" id="jib-jK-59c">
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="lY3-FF-xVX">
+                            <connections>
+                                <action selector="saveButtonPressed:" destination="bXn-a8-hUm" id="lYb-fC-Y6w"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Sr8-zH-qdp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

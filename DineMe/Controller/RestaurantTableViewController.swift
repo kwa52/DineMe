@@ -27,6 +27,7 @@ class RestaurantTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // For refreshing the table view when restaurant attributes has been modified in the edit form
         NotificationCenter.default.addObserver(self, selector: #selector(loadData), name: NSNotification.Name(rawValue: "load"), object: nil)
         
         searchBar.delegate = self
