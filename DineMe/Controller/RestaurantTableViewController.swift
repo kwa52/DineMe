@@ -31,12 +31,7 @@ class RestaurantTableViewController: UITableViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(loadData), name: NSNotification.Name(rawValue: "load"), object: nil)
         
         searchBar.delegate = self
-        searchBar.placeholder = "Search restaurants"
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        searchBar.placeholder = "Search restaurants..."
     }
 
     //
@@ -64,9 +59,11 @@ class RestaurantTableViewController: UITableViewController {
         return cell
     }
     
+    //***********************************
     //
     //MARK: - Table View Delegate Methods
     //
+    //***********************************
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 //        tableView.deselectRow(at: indexPath, animated: true)
@@ -94,10 +91,11 @@ class RestaurantTableViewController: UITableViewController {
         
     }
     
-    
+    //*****************
     //
     //MARK: - Utilities
     //
+    //*****************
     
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
     
@@ -129,9 +127,11 @@ class RestaurantTableViewController: UITableViewController {
         alert.showEdit("New Restaurant", subTitle: "can be modified later")
     }
     
+    //************************
     //
     //MARK: - Database Methods
     //
+    //************************
     
     @objc func loadData() {
         restaurants = selectedCategory?.restaurants.sorted(byKeyPath: "dateCreated", ascending: false)
@@ -175,12 +175,16 @@ class RestaurantTableViewController: UITableViewController {
 
 }
 
+//                **********************      Extentions      ****************************
+
 
 extension RestaurantTableViewController: SwipeTableViewCellDelegate, UISearchBarDelegate {
     
+    //******************************
     //
     //MARK: - Swipe Cell Kit Methods
     //
+    //******************************
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
         guard orientation == .right else { return nil }
