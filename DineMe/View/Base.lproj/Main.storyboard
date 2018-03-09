@@ -224,10 +224,10 @@
             </objects>
             <point key="canvasLocation" x="1236" y="136"/>
         </scene>
-        <!--Map View-->
+        <!--Find Restaurants-->
         <scene sceneID="jcJ-8P-QYJ">
             <objects>
-                <viewController id="G7h-HJ-SgN" customClass="TestViewController" customModule="DineMe" sceneMemberID="viewController">
+                <viewController id="G7h-HJ-SgN" customClass="MapViewController" customModule="DineMe" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Xym-3l-0ph">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -247,12 +247,12 @@
                         <viewLayoutGuide key="safeArea" id="ZzK-ud-RB9"/>
                     </view>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="Map View" id="FW8-X4-xhF">
+                    <navigationItem key="navigationItem" title="Find Restaurants" id="FW8-X4-xhF">
                         <barButtonItem key="rightBarButtonItem" systemItem="done" id="0u0-Wz-214"/>
                     </navigationItem>
                     <connections>
+                        <outlet property="mapView" destination="mPc-93-RBu" id="8ZW-SN-FDZ"/>
                         <outlet property="searchDisplayController" destination="dwX-Vf-95k" id="a69-TQ-XlH"/>
-                        <outlet property="testMapView" destination="mPc-93-RBu" id="NBr-zi-CGM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5H-Rk-DRI" userLabel="First Responder" sceneMemberID="firstResponder"/>
