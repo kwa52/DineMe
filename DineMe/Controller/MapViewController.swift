@@ -35,6 +35,7 @@ class MapViewController: UIViewController {
         // initialize location manager and GMSPPlacesClient
         locationManager.delegate = self
         searchBar.delegate = self
+        mapView.delegate = self
         
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestWhenInUseAuthorization()
@@ -58,6 +59,7 @@ class MapViewController: UIViewController {
         print("initial Location: \(initialLocation)")
         
         marker = GMSMarker(position: initialLocation)
+        marker?.snippet = "Hello World"
         marker?.title = "Title goes here!"
         marker?.map = mapView
         
@@ -93,13 +95,11 @@ extension MapViewController: CLLocationManagerDelegate, UISearchBarDelegate, GMS
         loadMapView(location: location)
     }
     
+    // Move the marker to position where user tapped
     func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
-//        marker.position = coordinate
+        marker?.position = coordinate
+        marker?.map = mapView
     }
-    
-//    func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
-//
-//    }
     
     // Handle authorization for the location manager.
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
@@ -132,7 +132,17 @@ extension MapViewController: CLLocationManagerDelegate, UISearchBarDelegate, GMS
     
     //
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        
+        print("User typed: \(searchBar.text ?? "empty searched")")
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchBar.text?.count == 0 {
+            
+            DispatchQueue.main.async {
+                // dismiss the keyboard and cursor on the search bar
+                searchBar.resignFirstResponder()
+            }
+        }
     }
 }
 
