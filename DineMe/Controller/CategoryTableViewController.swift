@@ -131,6 +131,11 @@ class CategoryTableViewController: UITableViewController {
         categories = realm.objects(Category.self)
         tableView.reloadData()
     }
+    
+    // Remove all restaurants when a category is removed
+    func removeChild() {
+        
+    }
 
     
 //    //Override to support conditional editing of the table view.

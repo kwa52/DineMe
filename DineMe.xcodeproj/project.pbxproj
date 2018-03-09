@@ -19,6 +19,7 @@
 		3546B32F204DD40E0054F9BB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3546B32E204DD40E0054F9BB /* Assets.xcassets */; };
 		3546B331204E00650054F9BB /* RestaurantTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3546B330204E00650054F9BB /* RestaurantTableViewController.swift */; };
 		35A5F6BC205089D0007C3164 /* RestuarantFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35A5F6BB205089D0007C3164 /* RestuarantFormViewController.swift */; };
+		35A5F6BE2051D5B5007C3164 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35A5F6BD2051D5B5007C3164 /* TestViewController.swift */; };
 		42AD9511947A4614ED2F591B /* Pods_DineMe.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 697F0BE57368F12964E69CEB /* Pods_DineMe.framework */; };
 /* End PBXBuildFile section */
 
@@ -37,6 +38,7 @@
 		3546B32E204DD40E0054F9BB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3546B330204E00650054F9BB /* RestaurantTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantTableViewController.swift; sourceTree = "<group>"; };
 		35A5F6BB205089D0007C3164 /* RestuarantFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestuarantFormViewController.swift; sourceTree = "<group>"; };
+		35A5F6BD2051D5B5007C3164 /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 		49612E9FA068338BF7DD7830 /* Pods-DineMe.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DineMe.release.xcconfig"; path = "Pods/Target Support Files/Pods-DineMe/Pods-DineMe.release.xcconfig"; sourceTree = "<group>"; };
 		697F0BE57368F12964E69CEB /* Pods_DineMe.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DineMe.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC19570793CB4981832428CB /* Pods-DineMe.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DineMe.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DineMe/Pods-DineMe.debug.xcconfig"; sourceTree = "<group>"; };
@@ -121,6 +123,7 @@
 				3546B3282048F7580054F9BB /* CategoryTableViewController.swift */,
 				3546B330204E00650054F9BB /* RestaurantTableViewController.swift */,
 				35A5F6BB205089D0007C3164 /* RestuarantFormViewController.swift */,
+				35A5F6BD2051D5B5007C3164 /* TestViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -271,9 +274,14 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-DineMe/Pods-DineMe-resources.sh",
+				"${PODS_ROOT}/GoogleMaps/Maps/Frameworks/GoogleMaps.framework/Resources/GoogleMaps.bundle",
+				"${PODS_ROOT}/GooglePlaces/Frameworks/GooglePlaces.framework/Resources/GooglePlaces.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleMaps.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GooglePlaces.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -294,6 +302,7 @@
 				3546B2ED2048A2630054F9BB /* AppDelegate.swift in Sources */,
 				3546B3072048A8A70054F9BB /* SignUpViewController.swift in Sources */,
 				35A5F6BC205089D0007C3164 /* RestuarantFormViewController.swift in Sources */,
+				35A5F6BE2051D5B5007C3164 /* TestViewController.swift in Sources */,
 				3546B3292048F7580054F9BB /* CategoryTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
