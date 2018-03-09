@@ -37,7 +37,7 @@ class LogInViewController: UIViewController {
             if error != nil {
                 print(error!)
             } else {
-                self.performSegue(withIdentifier: "goToMain", sender: self)
+                self.performSegue(withIdentifier: "goToHome", sender: self)
             }
         }
         

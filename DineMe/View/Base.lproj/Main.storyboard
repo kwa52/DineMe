@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="G7h-HJ-SgN">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Fxl-Aj-BiK">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -132,7 +132,7 @@
                                                 <state key="normal" title="Sign in"/>
                                                 <connections>
                                                     <action selector="signInButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="paj-m0-AC1"/>
-                                                    <segue destination="s6q-xr-Q6w" kind="show" id="qoO-BI-a6B"/>
+                                                    <segue destination="TA2-De-pjv" kind="show" id="0SM-bS-uvZ"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -180,14 +180,51 @@
                     <connections>
                         <outlet property="emailTextField" destination="B8D-Gh-5fJ" id="2aq-fv-GUN"/>
                         <outlet property="passwordTextField" destination="Wb6-z7-IMD" id="QTb-4y-TkW"/>
-                        <segue destination="s6q-xr-Q6w" kind="show" identifier="goToMain" id="Xnm-kq-oWg"/>
+                        <segue destination="TA2-De-pjv" kind="show" id="geg-Sz-hFf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-631.20000000000005" y="135.38230884557723"/>
         </scene>
-        <!--Test View Controller-->
+        <!--Home-->
+        <scene sceneID="s1b-ey-608">
+            <objects>
+                <viewController id="TA2-De-pjv" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="uxx-6M-VkO">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6NV-DV-oRo">
+                                <rect key="frame" x="0.0" y="623" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <items>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="v3V-R0-IHm"/>
+                                    <barButtonItem title="Map" id="co6-lE-xyz">
+                                        <connections>
+                                            <segue destination="G7h-HJ-SgN" kind="show" id="uEI-9A-IF4"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="qmZ-0O-Do8"/>
+                                    <barButtonItem title="My Restarants" id="FjH-VO-URA">
+                                        <connections>
+                                            <segue destination="s6q-xr-Q6w" kind="show" id="Hee-CF-P6n"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="Eet-so-YiC"/>
+                                </items>
+                            </toolbar>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="8fM-Ti-nNE"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Home" id="OBd-D1-bwu"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Lis-U1-NVP" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1236" y="136"/>
+        </scene>
+        <!--Map View-->
         <scene sceneID="jcJ-8P-QYJ">
             <objects>
                 <viewController id="G7h-HJ-SgN" customClass="TestViewController" customModule="DineMe" sceneMemberID="viewController">
@@ -195,27 +232,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oTs-le-Q41">
-                                <rect key="frame" x="0.0" y="623" width="375" height="44"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                <items>
-                                    <barButtonItem title="Switch" id="9wt-6U-aNK"/>
-                                </items>
-                            </toolbar>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mPc-93-RBu" customClass="GMSMapView">
-                                <rect key="frame" x="0.0" y="120" width="375" height="503"/>
+                                <rect key="frame" x="0.0" y="120" width="375" height="547"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
-                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jsy-oy-crr">
-                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                <items>
-                                    <navigationItem title="Map View" id="9Ln-NU-4pH">
-                                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="OxZ-LK-6Rv"/>
-                                    </navigationItem>
-                                </items>
-                            </navigationBar>
                             <searchBar contentMode="redraw" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cfI-Od-mtI">
                                 <rect key="frame" x="0.0" y="64" width="375" height="56"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
@@ -225,10 +246,10 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="ZzK-ud-RB9"/>
                     </view>
-                    <toolbarItems>
-                        <barButtonItem title="Item" id="2IX-nz-0R7"/>
-                    </toolbarItems>
-                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" title="Map View" id="FW8-X4-xhF">
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="0u0-Wz-214"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="searchDisplayController" destination="dwX-Vf-95k" id="a69-TQ-XlH"/>
                         <outlet property="testMapView" destination="mPc-93-RBu" id="NBr-zi-CGM"/>
@@ -244,7 +265,7 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="-588" y="1024"/>
+            <point key="canvasLocation" x="1236" y="1057"/>
         </scene>
         <!--Sign up-->
         <scene sceneID="gY0-J0-bVT">
@@ -352,12 +373,12 @@
                         <outlet property="confirmPasswordTextField" destination="QWi-qf-DMf" id="MbJ-xZ-caz"/>
                         <outlet property="emailTextField" destination="NoI-LD-n0E" id="TwK-zr-TOK"/>
                         <outlet property="passwordTextField" destination="mmY-3w-7AM" id="2wh-yB-E19"/>
-                        <segue destination="s6q-xr-Q6w" kind="show" identifier="goToMain" id="SDH-sB-a3T"/>
+                        <segue destination="TA2-De-pjv" kind="show" identifier="goToHome" id="qKQ-t8-kUo"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jyl-7F-Gmq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="177" y="511"/>
+            <point key="canvasLocation" x="335" y="528"/>
         </scene>
         <!--Category-->
         <scene sceneID="7KO-xl-lSZ">
@@ -397,7 +418,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vm0-sK-kaA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="951" y="135"/>
+            <point key="canvasLocation" x="2132" y="136"/>
         </scene>
         <!--Restaurants-->
         <scene sceneID="fhw-GX-ZGR">
@@ -457,7 +478,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8Db-rT-kdS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1732" y="134"/>
+            <point key="canvasLocation" x="2873" y="134"/>
         </scene>
         <!--Title-->
         <scene sceneID="WJ2-D3-5rK">
@@ -479,10 +500,10 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Sr8-zH-qdp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2529" y="135"/>
+            <point key="canvasLocation" x="3785" y="135"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="SDH-sB-a3T"/>
+        <segue reference="geg-Sz-hFf"/>
     </inferredMetricsTieBreakers>
 </document>
