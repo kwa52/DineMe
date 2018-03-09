@@ -13,10 +13,13 @@ import CoreLocation
 
 class MapViewController: UIViewController {
 
+    @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var mapView: GMSMapView!
     
     // declare instances
     let locationManager = CLLocationManager()
+    
+    var marker: GMSMarker?
     var currentLocation: CLLocation?
     var placesClient: GMSPlacesClient!
     var zoomLevel: Float = 15.0
@@ -31,84 +34,72 @@ class MapViewController: UIViewController {
 
         // initialize location manager and GMSPPlacesClient
         locationManager.delegate = self
+        searchBar.delegate = self
+        
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestWhenInUseAuthorization()
         locationManager.distanceFilter = 50
         locationManager.startUpdatingLocation()
         
         placesClient = GMSPlacesClient.shared()
-    
-//        let camera = GMSCameraPosition.camera(withLatitude: 52.520736, longitude: 13.409423, zoom: 12)
-//        self.mapView.camera = camera
-//
-//        let initialLocation = CLLocationCoordinate2DMake(52.520736, 13.409423)
-//        let marker = GMSMarker(position: initialLocation)
-//        marker.title = "Berlin"
-//        marker.map = mapView
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        
+        searchBar.placeholder = "Search restaurants..."
+        mapView.isMyLocationEnabled = true
     }
     
-//    override func loadView() {
-//        // Create a GMSCameraPosition that tells the map to display the
-//        // coordinate -33.86,151.20 at zoom level 6.
-//        let camera = GMSCameraPosition.camera(withLatitude: -33.86, longitude: 151.20, zoom: 6.0)
-//        let mapView = GMSMapView.map(withFrame: CGRect.zero, camera: camera)
-//        view = mapView
-//
-//        // Creates a marker in the center of the map.
-//        let marker = GMSMarker()
-//        marker.position = CLLocationCoordinate2D(latitude: -33.86, longitude: 151.20)
-//        marker.title = "Sydney"
-//        marker.snippet = "Australia"
-//        marker.map = mapView
-//    }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    // Load map view once the location is available from Location Manager
+    func loadMapView(location: CLLocation) {
+        let latitude = location.coordinate.latitude
+        let longitude = location.coordinate.longitude
+        let camera = GMSCameraPosition.camera(withLatitude: latitude, longitude: longitude, zoom: zoomLevel)
+        self.mapView.camera = camera
+        
+        let initialLocation = CLLocationCoordinate2DMake(latitude, longitude)
+        print("initial Location: \(initialLocation)")
+        
+        marker = GMSMarker(position: initialLocation)
+        marker?.title = "Title goes here!"
+        marker?.map = mapView
+        
+        //        if mapView.isHidden {
+        //            mapView.isHidden = false
+        //            mapView.camera = camera
+        //        } else {
+        //            mapView.animate(to: camera)
+        //        }
     }
-    */
 
 }
 
-extension MapViewController: CLLocationManagerDelegate {
+extension MapViewController: CLLocationManagerDelegate, UISearchBarDelegate, GMSMapViewDelegate {
+    
+    //*****************************************
+    //
+    //MARK: - Location Manager Delegate Methods
+    //
+    //*****************************************
     
     // Handle incoming location events.
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let location: CLLocation = locations.last!
         print("Location: \(location)")
         
-        let latitude = location.coordinate.latitude
-        let longitude = location.coordinate.longitude
+        // Stop once a location is available
+        if location.horizontalAccuracy > 0 {
+            locationManager.stopUpdatingLocation()
+            locationManager.delegate = nil
+        }
         
-        let camera = GMSCameraPosition.camera(withLatitude: latitude,
-                                              longitude: longitude,
-                                              zoom: zoomLevel)
-        
-        self.mapView.camera = camera
-        
-        let initialLocation = CLLocationCoordinate2DMake(latitude, longitude)
-        print("initial Location: \(initialLocation)")
-        let marker = GMSMarker(position: initialLocation)
-//        marker.title = "Berlin"
-        marker.map = mapView
-        
-//        if mapView.isHidden {
-//            mapView.isHidden = false
-//            mapView.camera = camera
-//        } else {
-//            mapView.animate(to: camera)
-//        }
-        
+        loadMapView(location: location)
     }
+    
+    func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
+//        marker.position = coordinate
+    }
+    
+//    func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
+//
+//    }
     
     // Handle authorization for the location manager.
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
@@ -131,6 +122,17 @@ extension MapViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         locationManager.stopUpdatingLocation()
         print("Error: \(error)")
+    }
+    
+    //**************************************
+    //
+    //MARK: - UI Search Bar Delegate Methods
+    //
+    //**************************************
+    
+    //
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        
     }
 }
 

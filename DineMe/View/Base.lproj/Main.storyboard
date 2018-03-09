@@ -252,6 +252,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="mapView" destination="mPc-93-RBu" id="8ZW-SN-FDZ"/>
+                        <outlet property="searchBar" destination="cfI-Od-mtI" id="Il4-Pe-WZ2"/>
                         <outlet property="searchDisplayController" destination="dwX-Vf-95k" id="a69-TQ-XlH"/>
                     </connections>
                 </viewController>
