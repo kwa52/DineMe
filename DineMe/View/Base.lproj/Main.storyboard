@@ -248,7 +248,11 @@
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Find Restaurants" id="FW8-X4-xhF">
-                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="0u0-Wz-214"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="0u0-Wz-214">
+                            <connections>
+                                <action selector="buttonPressed:" destination="G7h-HJ-SgN" id="hN2-XQ-M7H"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="mapView" destination="mPc-93-RBu" id="8ZW-SN-FDZ"/>
