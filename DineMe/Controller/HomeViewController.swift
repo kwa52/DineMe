@@ -27,6 +27,10 @@ class HomeViewController: UIViewController {
         present(placePicker, animated: true, completion: nil)
     }
     
+    func addNewRestaurant() {
+        
+    }
+    
     
 }
 
@@ -36,7 +40,7 @@ extension HomeViewController: GMSPlacePickerViewControllerDelegate {
     func placePicker(_ viewController: GMSPlacePickerViewController, didPick place: GMSPlace) {
         // Dismiss the place picker, as it cannot dismiss itself.
         viewController.dismiss(animated: true, completion: nil)
-        place.
+        
         print("Place name \(place.name)")
         print("Place address \(String(describing: place.formattedAddress))")
         print("Place attributions \(String(describing: place.attributions))")
