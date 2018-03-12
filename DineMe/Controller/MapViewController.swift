@@ -14,14 +14,12 @@ import GooglePlacePicker
 
 class MapViewController: UIViewController {
 
-    @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var mapView: GMSMapView!
     
     // declare instances
     let locationManager = CLLocationManager()
     var resultsViewController: GMSAutocompleteResultsViewController?
     var searchController: UISearchController?
-    
     
     var marker: GMSMarker?
     var currentLocation: CLLocation?
@@ -38,7 +36,6 @@ class MapViewController: UIViewController {
 
         // initialize location manager and GMSPPlacesClient
         locationManager.delegate = self
-        searchBar.delegate = self
         mapView.delegate = self
         
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
@@ -46,26 +43,10 @@ class MapViewController: UIViewController {
         locationManager.distanceFilter = 50
         locationManager.startUpdatingLocation()
         
+        // access the class used for searching and getting details about places
         placesClient = GMSPlacesClient.shared()
-        
-        searchBar.placeholder = "Search restaurants..."
+
         mapView.isMyLocationEnabled = true
-        
-        
-        
-        resultsViewController = GMSAutocompleteResultsViewController()
-        resultsViewController?.delegate = self
-        
-        searchController = UISearchController(searchResultsController: resultsViewController)
-        searchController?.searchResultsUpdater = resultsViewController
-        
-        searchBar = searchController?.searchBar
-        
-        // When UISearchController presents the results view, present it in
-        // this view controller, not one further up the chain.
-        definesPresentationContext = false
-        // Prevent the navigation bar from being hidden when searching.
-        searchController?.hidesNavigationBarDuringPresentation = false
     }
     
     // Load map view once the location is available from Location Manager
@@ -84,40 +65,11 @@ class MapViewController: UIViewController {
         marker?.map = mapView
     }
 
-    // Activate Google Place Picker
-    @IBAction func buttonPressed(_ sender: UIBarButtonItem) {
-        // for Place Pickers
-        let config = GMSPlacePickerConfig(viewport: nil)
-        let placePicker = GMSPlacePickerViewController(config: config)
-        present(placePicker, animated: true, completion: nil)
-        
-    }
-    
-    @IBAction func getCurrentPlace(_ sender: UIBarButtonItem) {
-        placesClient.currentPlace(callback: { (placeLikelihoodList, error) -> Void in
-            if let error = error {
-                print("Pick Place error: \(error.localizedDescription)")
-                return
-            }
-
-            if let placeLikelihoodList = placeLikelihoodList {
-                for likelihood in placeLikelihoodList.likelihoods {
-                    let place = likelihood.place
-                    print("Current Place name \(place.name) at likelihood \(likelihood.likelihood)")
-                    print("Current Place address \(place.formattedAddress)")
-                    print("Current Place attributions \(place.attributions)")
-                    print("Current PlaceID \(place.placeID)")
-                }
-            }
-        })
-    }
-    
-    @IBAction func autocompleteClicked(_ sender: UIBarButtonItem) {
+    @IBAction func autocompleteUIButtonPressed(_ sender: Any) {
         let autocompleteController = GMSAutocompleteViewController()
         autocompleteController.delegate = self
         present(autocompleteController, animated: true, completion: nil)
     }
-    
 }
 
 
@@ -126,10 +78,7 @@ class MapViewController: UIViewController {
 
 
 
-
-
-
-extension MapViewController: CLLocationManagerDelegate, UISearchBarDelegate, GMSMapViewDelegate, GMSPlacePickerViewControllerDelegate, GMSAutocompleteViewControllerDelegate, GMSAutocompleteResultsViewControllerDelegate {
+extension MapViewController: CLLocationManagerDelegate, UISearchBarDelegate, GMSMapViewDelegate, GMSAutocompleteResultsViewControllerDelegate, GMSAutocompleteViewControllerDelegate {
     
     
     //*****************************************
@@ -187,11 +136,12 @@ extension MapViewController: CLLocationManagerDelegate, UISearchBarDelegate, GMS
     //
     //*****************************************************
     
+    
     // Handle the user's selection.
     func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
         print("Place name: \(place.name)")
-        print("Place address: \(place.formattedAddress)")
-        print("Place attributions: \(place.attributions)")
+        print("Place address: \(String(describing: place.formattedAddress))")
+        print("Place attributions: \(String(describing: place.attributions))")
         dismiss(animated: true, completion: nil)
     }
     
@@ -205,28 +155,19 @@ extension MapViewController: CLLocationManagerDelegate, UISearchBarDelegate, GMS
         dismiss(animated: true, completion: nil)
     }
     
-    // Turn the network activity indicator on and off again.
-    func didRequestAutocompletePredictions(_ viewController: GMSAutocompleteViewController) {
-        UIApplication.shared.isNetworkActivityIndicatorVisible = true
-    }
-    
-    func didUpdateAutocompletePredictions(_ viewController: GMSAutocompleteViewController) {
-        UIApplication.shared.isNetworkActivityIndicatorVisible = false
-    }
-    
-    //*****************************************************
+    //************************************************************
     //
     //MARK: - Autocomplete Result View Controller Delegate Methods
     //
-    //*****************************************************
+    //************************************************************
     
     func resultsController(_ resultsController: GMSAutocompleteResultsViewController,
                            didAutocompleteWith place: GMSPlace) {
         searchController?.isActive = false
         // Do something with the selected place.
         print("Place name: \(place.name)")
-        print("Place address: \(place.formattedAddress)")
-        print("Place attributions: \(place.attributions)")
+        print("Place address: \(String(describing: place.formattedAddress))")
+        print("Place attributions: \(String(describing: place.attributions))")
     }
     
     func resultsController(_ resultsController: GMSAutocompleteResultsViewController,
@@ -235,28 +176,15 @@ extension MapViewController: CLLocationManagerDelegate, UISearchBarDelegate, GMS
         print("Error: ", error.localizedDescription)
     }
     
-    //**************************************
-    //
-    //MARK: - Place Picker Delegate Methods
-    //
-    //**************************************
-    
-    // To receive the results from the place picker 'self' will need to conform to
-    // GMSPlacePickerViewControllerDelegate and implement this code.
-    func placePicker(_ viewController: GMSPlacePickerViewController, didPick place: GMSPlace) {
-        // Dismiss the place picker, as it cannot dismiss itself.
-        viewController.dismiss(animated: true, completion: nil)
-        
-//        print("Place name \(place.name)")
-//        print("Place address \(place.formattedAddress)")
-//        print("Place attributions \(place.attributions)")
+    // Turn the network activity indicator on and off again.
+    func didRequestAutocompletePredictions(_ viewController: GMSAutocompleteViewController) {
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
+        print("didRequestAutocompletePridiciton called")
     }
     
-    func placePickerDidCancel(_ viewController: GMSPlacePickerViewController) {
-        // Dismiss the place picker, as it cannot dismiss itself.
-        viewController.dismiss(animated: true, completion: nil)
-        
-        print("No place selected")
+    func didUpdateAutocompletePredictions(_ viewController: GMSAutocompleteViewController) {
+        UIApplication.shared.isNetworkActivityIndicatorVisible = false
+        print("didUpdateAutocompletePridiciton called")
     }
     
     //**************************************

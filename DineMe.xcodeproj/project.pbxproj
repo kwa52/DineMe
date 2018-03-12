@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		351D175C2055E8BC003C0269 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351D175B2055E8BC003C0269 /* HomeViewController.swift */; };
 		3546B2ED2048A2630054F9BB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3546B2EC2048A2630054F9BB /* AppDelegate.swift */; };
 		3546B2EF2048A2630054F9BB /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3546B2EE2048A2630054F9BB /* LogInViewController.swift */; };
 		3546B2F22048A2630054F9BB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3546B2F02048A2630054F9BB /* Main.storyboard */; };
@@ -24,6 +25,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		351D175B2055E8BC003C0269 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		3546B2E92048A2620054F9BB /* DineMe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DineMe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3546B2EC2048A2630054F9BB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3546B2EE2048A2630054F9BB /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
@@ -120,6 +122,7 @@
 				3546B2EC2048A2630054F9BB /* AppDelegate.swift */,
 				3546B2EE2048A2630054F9BB /* LogInViewController.swift */,
 				3546B3062048A8A70054F9BB /* SignUpViewController.swift */,
+				351D175B2055E8BC003C0269 /* HomeViewController.swift */,
 				3546B3282048F7580054F9BB /* CategoryTableViewController.swift */,
 				3546B330204E00650054F9BB /* RestaurantTableViewController.swift */,
 				35A5F6BB205089D0007C3164 /* RestuarantFormViewController.swift */,
@@ -302,6 +305,7 @@
 				3546B331204E00650054F9BB /* RestaurantTableViewController.swift in Sources */,
 				3546B32D204A165E0054F9BB /* Restaurant.swift in Sources */,
 				3546B2ED2048A2630054F9BB /* AppDelegate.swift in Sources */,
+				351D175C2055E8BC003C0269 /* HomeViewController.swift in Sources */,
 				3546B3072048A8A70054F9BB /* SignUpViewController.swift in Sources */,
 				35A5F6BC205089D0007C3164 /* RestuarantFormViewController.swift in Sources */,
 				35A5F6BE2051D5B5007C3164 /* MapViewController.swift in Sources */,
