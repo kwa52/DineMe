@@ -36,7 +36,7 @@ class HomeViewController: UIViewController {
         let alert = UIAlertController(title: "New Restaurant", message: "", preferredStyle: .alert)
         
         alert.addTextField { (textField) in
-            textField.placeholder = "Enter category name"
+            textField.placeholder = "Please match category name"
             textInput = textField
         }
         

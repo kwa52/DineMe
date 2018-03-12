@@ -187,6 +187,34 @@
             </objects>
             <point key="canvasLocation" x="-631.20000000000005" y="135.38230884557723"/>
         </scene>
+        <!--Nearby Restaurant Table View Controller-->
+        <scene sceneID="WAj-fg-neW">
+            <objects>
+                <tableViewController id="VZe-v6-dVd" customClass="NearbyRestaurantTableViewController" customModule="DineMe" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="AYD-Ny-D3l">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="fetchedCell" id="7lm-dj-FoQ">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="7lm-dj-FoQ" id="0QS-wh-Gql">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="VZe-v6-dVd" id="KeX-ah-EQ9"/>
+                            <outlet property="delegate" destination="VZe-v6-dVd" id="j2D-AP-ibY"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="c0L-f4-eN1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2017" y="-574"/>
+        </scene>
         <!--Home-->
         <scene sceneID="s1b-ey-608">
             <objects>
@@ -225,6 +253,15 @@
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="Eet-so-YiC"/>
                                 </items>
                             </toolbar>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YaL-Ta-hcz">
+                                <rect key="frame" x="99" y="298" width="177" height="71"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="50"/>
+                                <state key="normal" title="Look Up"/>
+                                <connections>
+                                    <segue destination="VZe-v6-dVd" kind="show" id="CWV-Wo-myd"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="8fM-Ti-nNE"/>
