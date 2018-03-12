@@ -12,4 +12,8 @@ import RealmSwift
 class Category: Object {
     @objc dynamic var title : String = ""
     let restaurants = List<Restaurant>()
+    
+    override static func primaryKey() -> String? {
+        return "title"
+    }
 }
