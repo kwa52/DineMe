@@ -13,6 +13,8 @@ class Restaurant: Object {
     @objc dynamic var name : String?
     @objc dynamic var cuisine : String?
     @objc dynamic var style : String?
+    @objc dynamic var address : String?
+    @objc dynamic var placeID : String?
     @objc dynamic var dateCreated : Date?
     var parent = LinkingObjects(fromType: Category.self, property: "restaurants")
     

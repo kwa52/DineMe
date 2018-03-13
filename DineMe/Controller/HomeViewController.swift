@@ -31,7 +31,7 @@ class HomeViewController: UIViewController {
     }
     
     // Pop up alert to add new restaurant to the archive
-    func addRestaurantAlert(withRestaurant newRestaurantName: String) {
+    func addRestaurantAlert(withRestaurant newRestaurant: GMSPlace) {
         var textInput = UITextField()
         let alert = UIAlertController(title: "New Restaurant", message: "", preferredStyle: .alert)
         
@@ -41,7 +41,7 @@ class HomeViewController: UIViewController {
         }
         
         let action = UIAlertAction(title: "Add", style: .default) { (action) in
-            self.addNewRestaurant(toCategory: textInput.text!, withNewRestaurant: newRestaurantName)
+            self.addNewRestaurant(toCategory: textInput.text!, withNewRestaurant: newRestaurant)
         }
         
         alert.addAction(action)
@@ -57,12 +57,15 @@ class HomeViewController: UIViewController {
     }
     
     // Write new added restaurant into the database
-    func addNewRestaurant(toCategory category: String, withNewRestaurant newRestaurantName: String) {
+    func addNewRestaurant(toCategory category: String, withNewRestaurant pickedRestaurant: GMSPlace) {
         
+        // get the category object which name matches what user typed in the UIAlert text field
         if let selectedCategory = realm.object(ofType: Category.self, forPrimaryKey: category) {
             do {
                 let newRestaurant = Restaurant()
-                newRestaurant.name = newRestaurantName
+                newRestaurant.name = pickedRestaurant.name
+                newRestaurant.address = pickedRestaurant.formattedAddress
+                newRestaurant.placeID = pickedRestaurant.placeID
                 newRestaurant.dateCreated = Date()
                 try realm.write {
                     realm.add(newRestaurant)
@@ -85,7 +88,7 @@ extension HomeViewController: GMSPlacePickerViewControllerDelegate {
         print("Place name \(place.name)")
         print("Place address \(String(describing: place.formattedAddress))")
         print("Place attributions \(String(describing: place.attributions))")
-        addRestaurantAlert(withRestaurant: place.name)
+        addRestaurantAlert(withRestaurant: place)
     }
     
     func placePickerDidCancel(_ viewController: GMSPlacePickerViewController) {

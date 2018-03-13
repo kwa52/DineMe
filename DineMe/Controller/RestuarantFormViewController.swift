@@ -18,6 +18,7 @@ class RestaurantFormViewController: FormViewController {
     var nameInput: String?
     var cuisineInput: String?
     var styleInput: String?
+    var addressInput: String?
     var formattedDate: String?
     
     var selectedRestaurant : Restaurant? {
@@ -77,6 +78,13 @@ class RestaurantFormViewController: FormViewController {
                     self.styleInput = row.value
                 })
             }
+            <<< TextRow(){ row in
+                row.title = "Address"
+                row.placeholder = selectedRestaurant?.address
+                row.onChange({ (textRow) in
+                    self.addressInput = row.value
+                })
+        }
     }
     
     // Update the properties
@@ -91,6 +99,9 @@ class RestaurantFormViewController: FormViewController {
         
         if let newStyle = styleInput {
             updateStyle(with: newStyle)
+        }
+        if let newAddress = addressInput {
+            updateStyle(with: newAddress)
         }
     }
     
@@ -135,6 +146,15 @@ class RestaurantFormViewController: FormViewController {
         do {
             try self.realm.write {
                 self.selectedRestaurant!.style = newStyle
+            }
+        } catch {
+            print(error)
+        }
+    }
+    func updateAddress(with newAddress: String) {
+        do {
+            try self.realm.write {
+                self.selectedRestaurant!.address = newAddress
             }
         } catch {
             print(error)
