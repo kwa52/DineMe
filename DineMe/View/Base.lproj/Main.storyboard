@@ -187,7 +187,7 @@
             </objects>
             <point key="canvasLocation" x="-631.20000000000005" y="135.38230884557723"/>
         </scene>
-        <!--Nearby Restaurant Table View Controller-->
+        <!--Restaurants Nearby-->
         <scene sceneID="WAj-fg-neW">
             <objects>
                 <tableViewController id="VZe-v6-dVd" customClass="NearbyRestaurantTableViewController" customModule="DineMe" sceneMemberID="viewController">
@@ -210,6 +210,7 @@
                             <outlet property="delegate" destination="VZe-v6-dVd" id="j2D-AP-ibY"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" title="Restaurants Nearby" id="6CL-QD-eXx"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="c0L-f4-eN1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
