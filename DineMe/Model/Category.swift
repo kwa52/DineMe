@@ -16,4 +16,12 @@ class Category: Object {
     override static func primaryKey() -> String? {
         return "title"
     }
+    
+    override func isEqual(_ object: Any?) -> Bool {
+        if let other = object as? Category {
+            return self.title == other.title
+        } else {
+            return false
+        }
+    }
 }

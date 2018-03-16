@@ -15,15 +15,24 @@ import GooglePlaces
 class NearbyRestaurantTableViewController: UITableViewController {
 
     let realm = try! Realm()
-    var placesClient: GMSPlacesClient!
+    let baseURL = "https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&"
+    let key = "AIzaSyCRlwZuTqGcHtSj5Bc66v3N7htFFA43a04"
     
+    var placesClient: GMSPlacesClient = GMSPlacesClient.shared()
     var categories: Results<Category>?
     var restaurants: Results<Restaurant>?
+    var categoriesToDisplay = [Category]()
+    var currentLocation: String = "2262 Gale Ave"
+    var destinationLocation: String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
+//        placesClient = GMSPlacesClient.shared()
         loadCategory()
         loadRestaurant()
+//        setCurrentLocation()
+
+        createFilteredDataToDisplay()
         
 //        if let allCategory = categories {
 //            for category in allCategory {
@@ -32,45 +41,178 @@ class NearbyRestaurantTableViewController: UITableViewController {
 //                }
 //            }
 //        }
-        placesClient = GMSPlacesClient.shared()
-        getCurrentLocation()
-        placeAutocomplete()
+        
+        
+//        for displayCategory in categoriesToDisplay {
+//            for eachRestaurant in displayCategory.restaurants {
+//                print(eachRestaurant)
+//            }
+//        }
+        
+//        let cat1 = Category()
+//        let cat2 = Category()
+//        let cat3 = Category()
+//        let cat4 = Category()
+//        cat1.title = "Cat1"
+//        cat2.title = "Cat2"
+//        cat3.title = "Cat3"
+//        cat4.title = "Cat4"
+//        var arr = [Category]()
+//        arr.append(cat1)
+//        arr.append(cat2)
+//        arr.append(cat3)
+//
+//        let hadError = arr.contains { element in
+//            if case "Cat1" = element.title {
+//                return true
+//            } else {
+//                return false
+//            }
+//        }
+//        print(hadError)
+//
+//        print(arr.contains(cat1))
+//        print(arr.contains(cat4))
+    }
+    
+    // Filter Categories to display
+    func createFilteredDataToDisplay() {
+        if let categories = categories {
+            for thisCategory in categories {
+                // only populate categories with at least one restaurants
+                if (thisCategory.restaurants.count > 0) {
+                    let categoryToDisplay = Category()
+                    
+                    // populate restaurants that are nearby
+                    for thisRestaurant in thisCategory.restaurants {
+                        var finalRequestURL: String = ""
+                        destinationLocation = thisRestaurant.address!
+                        currentLocation = currentLocation.components(separatedBy: " ").joined(separator: "%20")
+                        destinationLocation = destinationLocation.components(separatedBy: " ").joined(separator: "%20")
+                        finalRequestURL = baseURL + "origins=\(currentLocation)&destinations=\(destinationLocation)&key=\(key)"
+                        print("Final Request Address: \(finalRequestURL)")
+                        
+                        Alamofire.request(finalRequestURL).responseJSON { (response) in
+                            if response.result.isSuccess {
+                                let resultJSON : JSON = JSON(response.result.value!)
+                                print("JSON: \(resultJSON)") // serialized json response
+                                
+                                // convert the value in seconds to minutes
+                                let travelTime = resultJSON["rows"][0]["elements"][0]["duration"]["value"].intValue / 60
+                                print("It will take \(travelTime) minutes to get to \(self.destinationLocation)")
+                                
+                                // add this restaurant for display
+                                if travelTime < 20 {
+                                    let categoryExistsForDisplay = self.categoriesToDisplay.contains { element in
+                                        if case categoryToDisplay.title = element.title {
+                                            print("This category is already exist for display")
+                                            return true
+                                        } else {
+                                            print("This category does not exist for display")
+                                            return false
+                                        }
+                                    }
+                                    if categoryExistsForDisplay {
+                                        if let first = self.categoriesToDisplay.first(where: { $0.title == categoryToDisplay.title }) {
+                                            first.restaurants.append(thisRestaurant)
+                                            self.tableView.reloadData()
+                                        }
+                                        print("Add new restaurant to existed category for display")
+                                    }
+                                    else {
+                                        categoryToDisplay.restaurants.append(thisRestaurant)
+                                        self.categoriesToDisplay.append(categoryToDisplay)
+                                        self.tableView.reloadData()
+                                        print("Add new category to display")
+                                    }
+                                }
+                            }
+                        }
+                        
+                    }
+                }
+            }
+        }
+    }
+    
+    // Check if the restaurant is nearby, which has under 20 minute travel time
+    func restaurantIsNearby(restaurant: Restaurant) -> Bool {
+        var isNearby = true
+        var travelTime: Int = 20
+        
+        if let destinationAddress = restaurant.address {
+            travelTime = distanceRequest(withDestination: destinationAddress)
+        }
+        if travelTime > 20 {
+            isNearby = false
+        }
+        
+        return isNearby
+    }
+    
+    // **************************************
+    // MARK: - Alamofire HTTP Request Methods
+    
+    func distanceRequest(withDestination destinationAddress: String) -> Int{
+        //        currentLocation = "2262 Gale Ave"
+        //        destinationLocation = "2929 Barnet Hwy Coquitlam BC V3B 5R5"
+        var finalRequestURL: String = ""
+        var travelTime: Int = -1
+        
+        // Construct HTTP request
+        currentLocation = currentLocation.components(separatedBy: " ").joined(separator: "%20")
+        destinationLocation = destinationAddress.components(separatedBy: " ").joined(separator: "%20")
+        finalRequestURL = baseURL + "origins=\(currentLocation)&destinations=\(destinationLocation)&key=\(key)"
+        
+        print("Current Address: \(currentLocation)")
+        print("Destination Address: \(destinationLocation)")
+        print("Final Request Address: \(finalRequestURL)")
+        
+        Alamofire.request(finalRequestURL).responseJSON { (response) in
+            if response.result.isSuccess {
+                let resultJSON : JSON = JSON(response.result.value!)
+                print("JSON: \(resultJSON)") // serialized json response
+                
+                // convert the value in seconds to minutes
+                travelTime = resultJSON["rows"][0]["elements"][0]["duration"]["value"].intValue / 60
+            }
+        }
+        print("It will take \(travelTime) minutes to get to \(destinationAddress)")
+        
+        return travelTime
     }
 
     // *******************************
     // MARK: - Table view data source
-    
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return categories?.count ?? 1
+        return categoriesToDisplay.count
     }
     
     // set titles for each section
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         var titles = [String]()
-        if let allCategory = categories {
-            for category in allCategory {
-                titles.append(category.title)
-            }
-            return titles[section]
+        for category in categoriesToDisplay {
+            titles.append(category.title)
         }
-        return "No Category"
+        return titles[section]
     }
 
     // number of rows for each section
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return categories?[section].restaurants.count ?? 0
+        return categoriesToDisplay[section].restaurants.count
     }
 
     // Populate table cell correspond to their section
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "fetchedCell", for: indexPath)
         
-        let thisCategory = categories?[indexPath.section]
-        let thisRestaurant = thisCategory?.restaurants[indexPath.row]
-        cell.textLabel?.text = thisRestaurant?.name
+        let thisCategory = categoriesToDisplay[indexPath.section]
+        let thisRestaurant = thisCategory.restaurants[indexPath.row]
+        
+        cell.textLabel?.text = thisRestaurant.name
         
         return cell
     }
@@ -78,7 +220,7 @@ class NearbyRestaurantTableViewController: UITableViewController {
     // *****************************
     // MARK: - Google Places Methods
     
-    func getCurrentLocation() {
+    func setCurrentLocation() {
         placesClient.currentPlace(callback: { (placeLikelihooodList, error) -> Void in
             if let error = error {
                 print("Pick Place error: \(error.localizedDescription)")
@@ -95,9 +237,11 @@ class NearbyRestaurantTableViewController: UITableViewController {
                 let place = placeLikelihoodList.likelihoods.first?.place
                 if let place = place {
                     nameLabel = place.name
+                    self.currentLocation = place.name
                     addressLabel = place.formattedAddress//?.components(separatedBy: ", ").joined(separator: "\n")
                 }
             }
+            print("Current Location Set: \(self.currentLocation)")
             print("Name Label: \(String(describing: nameLabel))")
             print("Address Label: \(String(describing: addressLabel))")
         })
@@ -120,15 +264,11 @@ class NearbyRestaurantTableViewController: UITableViewController {
             }
         })
     }
-        
-        
     
-    // **************************************
-    // MARK: - Alamofire HTTP Request Methods
+    // MARK: - Utilities
     
-    func distanceMatrixRequest() {
-        
-    }
+    
+    
 
     // *****************************
     // MARK: - Database Manipulation

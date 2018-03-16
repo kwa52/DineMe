@@ -9,6 +9,8 @@
 import UIKit
 import GooglePlacePicker
 import RealmSwift
+import Alamofire
+import SwiftyJSON
 
 class HomeViewController: UIViewController {
     
@@ -16,12 +18,13 @@ class HomeViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // Do any additional setup after loading the view.
-        
     }
 
-
+    @IBAction func lookUpButtonPressed(_ sender: Any) {
+        performSegue(withIdentifier: "goToNearby", sender: self)
+    }
+    
     @IBAction func pickerPressed(_ sender: Any) {
         let config = GMSPlacePickerConfig(viewport: nil)
         let placePicker = GMSPlacePickerViewController(config: config)
@@ -30,7 +33,7 @@ class HomeViewController: UIViewController {
         present(placePicker, animated: true, completion: nil)
     }
     
-    // Pop up alert to add new restaurant to the archive
+    // Pop up alert to add new restaurant to the archive after selected from Place Picker
     func addRestaurantAlert(withRestaurant newRestaurant: GMSPlace) {
         var textInput = UITextField()
         let alert = UIAlertController(title: "New Restaurant", message: "", preferredStyle: .alert)
@@ -76,6 +79,7 @@ class HomeViewController: UIViewController {
             }
         }
     }
+    
 }
 
 extension HomeViewController: GMSPlacePickerViewControllerDelegate {
