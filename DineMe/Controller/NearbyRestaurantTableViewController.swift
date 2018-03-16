@@ -31,43 +31,6 @@ class NearbyRestaurantTableViewController: UITableViewController {
 //        setCurrentLocation()
 
         createFilteredDataToDisplay()
-        
-//        if let allCategory = categories {
-//            for category in allCategory {
-//                for rest in category.restaurants {
-//                    print(rest)
-//                }
-//            }
-//        }
-        
-        
-        
-        
-//        let cat1 = Category()
-//        let cat2 = Category()
-//        let cat3 = Category()
-//        let cat4 = Category()
-//        cat1.title = "Cat1"
-//        cat2.title = "Cat2"
-//        cat3.title = "Cat3"
-//        cat4.title = "Cat4"
-//        var arr = [Category]()
-//        arr.append(cat1)
-//        arr.append(cat2)
-//        arr.append(cat3)
-//
-//        let hadError = arr.contains { element in
-//            if case "Cat1" = element.title {
-//                return true
-//            } else {
-//                return false
-//            }
-//        }
-//        print(hadError)
-//
-//        print(arr.contains(cat1))
-//        print(arr.contains(cat4))
-        
     }
     
     // Filter Categories to display

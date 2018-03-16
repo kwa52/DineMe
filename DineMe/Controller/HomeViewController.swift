@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreLocation
 import GooglePlacePicker
 import RealmSwift
 import Alamofire
@@ -15,10 +16,29 @@ import SwiftyJSON
 class HomeViewController: UIViewController {
     
     let realm = try! Realm()
+    let locationManager = CLLocationManager()
 
+    var currentLocation: CLLocation?
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        
+        
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.distanceFilter = 50
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        print("Home Controller View Will Appear")
+        locationManager.delegate = self
+        locationManager.startUpdatingLocation()
+        print("Start Updating Location")
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        print("Home Controller View Will Disappear")
     }
 
     @IBAction func lookUpButtonPressed(_ sender: Any) {
@@ -82,7 +102,11 @@ class HomeViewController: UIViewController {
     
 }
 
-extension HomeViewController: GMSPlacePickerViewControllerDelegate {
+extension HomeViewController: GMSPlacePickerViewControllerDelegate, CLLocationManagerDelegate {
+    
+    // ********************************
+    // MARK: - Place Picker Methods
+    
     // To receive the results from the place picker 'self' will need to conform to
     // GMSPlacePickerViewControllerDelegate and implement this code.
     func placePicker(_ viewController: GMSPlacePickerViewController, didPick place: GMSPlace) {
@@ -100,6 +124,21 @@ extension HomeViewController: GMSPlacePickerViewControllerDelegate {
         viewController.dismiss(animated: true, completion: nil)
         
         print("No place selected")
+    }
+    
+    // ********************************
+    // MARK: - Locatoin Manager Methods
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let location: CLLocation = locations.last!
+        print("Current Location: \(location)")
+        
+        if location.horizontalAccuracy > 0 {
+            locationManager.stopUpdatingLocation()
+            locationManager.delegate = nil
+        }
+        
+        currentLocation = location
     }
 
 }
