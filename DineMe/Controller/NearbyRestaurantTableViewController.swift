@@ -20,7 +20,6 @@ class NearbyRestaurantTableViewController: UITableViewController {
     
     var placesClient: GMSPlacesClient = GMSPlacesClient.shared()
     var categories: Results<Category>?
-    var restaurants: Results<Restaurant>?
     var categoriesToDisplay = [Category]()
     var currentLocation: String = "2262 Gale Ave"
     var destinationLocation: String = ""
@@ -29,7 +28,6 @@ class NearbyRestaurantTableViewController: UITableViewController {
         super.viewDidLoad()
 //        placesClient = GMSPlacesClient.shared()
         loadCategory()
-        loadRestaurant()
 //        setCurrentLocation()
 
         createFilteredDataToDisplay()
@@ -43,11 +41,7 @@ class NearbyRestaurantTableViewController: UITableViewController {
 //        }
         
         
-//        for displayCategory in categoriesToDisplay {
-//            for eachRestaurant in displayCategory.restaurants {
-//                print(eachRestaurant)
-//            }
-//        }
+        
         
 //        let cat1 = Category()
 //        let cat2 = Category()
@@ -73,6 +67,7 @@ class NearbyRestaurantTableViewController: UITableViewController {
 //
 //        print(arr.contains(cat1))
 //        print(arr.contains(cat4))
+        
     }
     
     // Filter Categories to display
@@ -82,6 +77,7 @@ class NearbyRestaurantTableViewController: UITableViewController {
                 // only populate categories with at least one restaurants
                 if (thisCategory.restaurants.count > 0) {
                     let categoryToDisplay = Category()
+                    categoryToDisplay.title = thisCategory.title
                     
                     // populate restaurants that are nearby
                     for thisRestaurant in thisCategory.restaurants {
@@ -99,31 +95,24 @@ class NearbyRestaurantTableViewController: UITableViewController {
                                 
                                 // convert the value in seconds to minutes
                                 let travelTime = resultJSON["rows"][0]["elements"][0]["duration"]["value"].intValue / 60
-                                print("It will take \(travelTime) minutes to get to \(self.destinationLocation)")
+                                print("It will take \(travelTime) minutes to get to \(String(describing: thisRestaurant.name!))")
                                 
                                 // add this restaurant for display
                                 if travelTime < 20 {
-                                    let categoryExistsForDisplay = self.categoriesToDisplay.contains { element in
-                                        if case categoryToDisplay.title = element.title {
-                                            print("This category is already exist for display")
-                                            return true
-                                        } else {
-                                            print("This category does not exist for display")
-                                            return false
-                                        }
-                                    }
+                                    let categoryExistsForDisplay = self.categoriesToDisplay.contains { $0.title == categoryToDisplay.title }
+                                    
                                     if categoryExistsForDisplay {
                                         if let first = self.categoriesToDisplay.first(where: { $0.title == categoryToDisplay.title }) {
                                             first.restaurants.append(thisRestaurant)
                                             self.tableView.reloadData()
                                         }
-                                        print("Add new restaurant to existed category for display")
+                                        print("Add new restaurant to existed category \(categoryToDisplay.title) for display")
                                     }
                                     else {
                                         categoryToDisplay.restaurants.append(thisRestaurant)
                                         self.categoriesToDisplay.append(categoryToDisplay)
                                         self.tableView.reloadData()
-                                        print("Add new category to display")
+                                        print("Add new category \(categoryToDisplay.title) to display")
                                     }
                                 }
                             }
@@ -135,53 +124,6 @@ class NearbyRestaurantTableViewController: UITableViewController {
         }
     }
     
-    // Check if the restaurant is nearby, which has under 20 minute travel time
-    func restaurantIsNearby(restaurant: Restaurant) -> Bool {
-        var isNearby = true
-        var travelTime: Int = 20
-        
-        if let destinationAddress = restaurant.address {
-            travelTime = distanceRequest(withDestination: destinationAddress)
-        }
-        if travelTime > 20 {
-            isNearby = false
-        }
-        
-        return isNearby
-    }
-    
-    // **************************************
-    // MARK: - Alamofire HTTP Request Methods
-    
-    func distanceRequest(withDestination destinationAddress: String) -> Int{
-        //        currentLocation = "2262 Gale Ave"
-        //        destinationLocation = "2929 Barnet Hwy Coquitlam BC V3B 5R5"
-        var finalRequestURL: String = ""
-        var travelTime: Int = -1
-        
-        // Construct HTTP request
-        currentLocation = currentLocation.components(separatedBy: " ").joined(separator: "%20")
-        destinationLocation = destinationAddress.components(separatedBy: " ").joined(separator: "%20")
-        finalRequestURL = baseURL + "origins=\(currentLocation)&destinations=\(destinationLocation)&key=\(key)"
-        
-        print("Current Address: \(currentLocation)")
-        print("Destination Address: \(destinationLocation)")
-        print("Final Request Address: \(finalRequestURL)")
-        
-        Alamofire.request(finalRequestURL).responseJSON { (response) in
-            if response.result.isSuccess {
-                let resultJSON : JSON = JSON(response.result.value!)
-                print("JSON: \(resultJSON)") // serialized json response
-                
-                // convert the value in seconds to minutes
-                travelTime = resultJSON["rows"][0]["elements"][0]["duration"]["value"].intValue / 60
-            }
-        }
-        print("It will take \(travelTime) minutes to get to \(destinationAddress)")
-        
-        return travelTime
-    }
-
     // *******************************
     // MARK: - Table view data source
 
@@ -275,11 +217,6 @@ class NearbyRestaurantTableViewController: UITableViewController {
     
     func loadCategory() {
         categories = realm.objects(Category.self)
-        tableView.reloadData()
-    }
-    
-    func loadRestaurant() {
-        restaurants = realm.objects(Restaurant.self)
         tableView.reloadData()
     }
 
