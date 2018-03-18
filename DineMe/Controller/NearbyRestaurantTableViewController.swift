@@ -8,6 +8,7 @@
 
 import UIKit
 import RealmSwift
+import CoreLocation
 import Alamofire
 import SwiftyJSON
 import GooglePlaces
@@ -21,15 +22,21 @@ class NearbyRestaurantTableViewController: UITableViewController {
     var placesClient: GMSPlacesClient = GMSPlacesClient.shared()
     var categories: Results<Category>?
     var categoriesToDisplay = [Category]()
-    var currentLocation: String = "2262 Gale Ave"
+    var currentLocation: String? {
+        didSet {
+            currentLocation = currentLocation!.components(separatedBy: " ").joined(separator: "%20")
+            print("Current Address is \(currentLocation)")
+            
+            
+        }
+    }
     var destinationLocation: String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
 //        placesClient = GMSPlacesClient.shared()
-        loadCategory()
 //        setCurrentLocation()
-
+        loadCategory()
         createFilteredDataToDisplay()
     }
     
@@ -46,9 +53,8 @@ class NearbyRestaurantTableViewController: UITableViewController {
                     for thisRestaurant in thisCategory.restaurants {
                         var finalRequestURL: String = ""
                         destinationLocation = thisRestaurant.address!
-                        currentLocation = currentLocation.components(separatedBy: " ").joined(separator: "%20")
                         destinationLocation = destinationLocation.components(separatedBy: " ").joined(separator: "%20")
-                        finalRequestURL = baseURL + "origins=\(currentLocation)&destinations=\(destinationLocation)&key=\(key)"
+                        finalRequestURL = baseURL + "origins=\(currentLocation!)&destinations=\(destinationLocation)&key=\(key)"
                         print("Final Request Address: \(finalRequestURL)")
                         
                         Alamofire.request(finalRequestURL).responseJSON { (response) in
@@ -61,7 +67,7 @@ class NearbyRestaurantTableViewController: UITableViewController {
                                 print("It will take \(travelTime) minutes to get to \(String(describing: thisRestaurant.name!))")
                                 
                                 // add this restaurant for display
-                                if travelTime < 20 {
+                                if travelTime < 10 {
                                     let categoryExistsForDisplay = self.categoriesToDisplay.contains { $0.title == categoryToDisplay.title }
                                     
                                     if categoryExistsForDisplay {

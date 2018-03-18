@@ -248,7 +248,7 @@
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="qmZ-0O-Do8"/>
                                     <barButtonItem title="My Restarants" id="FjH-VO-URA">
                                         <connections>
-                                            <segue destination="s6q-xr-Q6w" kind="show" id="Hee-CF-P6n"/>
+                                            <segue destination="s6q-xr-Q6w" kind="show" identifier="gotoCategory" id="Hee-CF-P6n"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="Eet-so-YiC"/>

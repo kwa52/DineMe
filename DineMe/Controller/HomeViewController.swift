@@ -15,34 +15,35 @@ import SwiftyJSON
 
 class HomeViewController: UIViewController {
     
+    let geocodeKey = "AIzaSyCt05eIT5U9_VWFQkwYTFmTme5z8IJ5VEg"
+    let baseURL = "https://maps.googleapis.com/maps/api/geocode/json?latlng="
     let realm = try! Realm()
     let locationManager = CLLocationManager()
 
-    var currentLocation: CLLocation?
-    
+    var currentAddress: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
-        
-        
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.requestWhenInUseAuthorization()
-        locationManager.distanceFilter = 50
+    
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        print("Home Controller View Will Appear")
         locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.distanceFilter = 50
         locationManager.startUpdatingLocation()
-        print("Start Updating Location")
     }
-    override func viewWillDisappear(_ animated: Bool) {
-        print("Home Controller View Will Disappear")
-    }
-
+    
     @IBAction func lookUpButtonPressed(_ sender: Any) {
         performSegue(withIdentifier: "goToNearby", sender: self)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "goToNearby" {
+            let destinationVC = segue.destination as! NearbyRestaurantTableViewController
+            destinationVC.currentLocation = currentAddress
+        }
     }
     
     @IBAction func pickerPressed(_ sender: Any) {
@@ -127,6 +128,7 @@ extension HomeViewController: GMSPlacePickerViewControllerDelegate, CLLocationMa
     }
     
     // ********************************
+    
     // MARK: - Locatoin Manager Methods
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -138,7 +140,31 @@ extension HomeViewController: GMSPlacePickerViewControllerDelegate, CLLocationMa
             locationManager.delegate = nil
         }
         
-        currentLocation = location
+        let latitude = String(location.coordinate.latitude)
+        let longitude = String(location.coordinate.longitude)
+        var finalURL = ""
+        
+        finalURL = baseURL + "\(latitude),\(longitude)&key=\(geocodeKey)"
+        print("Final URL: \(finalURL)")
+        
+        // Geocode coordinates to address
+        Alamofire.request(finalURL).responseJSON { (response) in
+            if response.result.isSuccess {
+                let resultJSON : JSON = JSON(response.result.value!)
+                print("JSON: \(resultJSON)")
+                
+                let returnAddress = resultJSON["results"][0]["formatted_address"]
+                print("Returned Address: \(returnAddress)")
+                self.currentAddress = returnAddress.stringValue
+            }
+        }
+        
+    }
+    
+    // Handle location manager errors.
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        locationManager.stopUpdatingLocation()
+        print("Error: \(error)")
     }
 
 }

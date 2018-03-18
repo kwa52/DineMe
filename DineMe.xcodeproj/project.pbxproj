@@ -128,8 +128,8 @@
 				3546B3282048F7580054F9BB /* CategoryTableViewController.swift */,
 				3546B330204E00650054F9BB /* RestaurantTableViewController.swift */,
 				35A5F6BB205089D0007C3164 /* RestuarantFormViewController.swift */,
-				35A5F6BD2051D5B5007C3164 /* MapViewController.swift */,
 				351D175D20572383003C0269 /* NearbyRestaurantTableViewController.swift */,
+				35A5F6BD2051D5B5007C3164 /* MapViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
