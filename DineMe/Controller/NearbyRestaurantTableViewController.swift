@@ -70,6 +70,14 @@ class NearbyRestaurantTableViewController: UITableViewController {
                                 if travelTime < 10 {
                                     let categoryExistsForDisplay = self.categoriesToDisplay.contains { $0.title == categoryToDisplay.title }
                                     
+                                    do {
+                                        try self.realm.write {
+                                            thisRestaurant.travelTime = travelTime
+                                        }
+                                    } catch {
+                                        print(error)
+                                    }
+                                    
                                     if categoryExistsForDisplay {
                                         if let first = self.categoriesToDisplay.first(where: { $0.title == categoryToDisplay.title }) {
                                             first.restaurants.append(thisRestaurant)
@@ -124,6 +132,7 @@ class NearbyRestaurantTableViewController: UITableViewController {
         let thisRestaurant = thisCategory.restaurants[indexPath.row]
         
         cell.textLabel?.text = thisRestaurant.name
+        cell.detailTextLabel?.text = "\(thisRestaurant.travelTime) minutes"
         
         return cell
     }

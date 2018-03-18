@@ -15,7 +15,7 @@ class Restaurant: Object {
     @objc dynamic var style : String?
     @objc dynamic var address : String?
     @objc dynamic var placeID : String?
-    @objc dynamic var isNearby : Bool = false
+    @objc dynamic var travelTime: Int = 0
     @objc dynamic var dateCreated : Date?
     var parent = LinkingObjects(fromType: Category.self, property: "restaurants")    
     
