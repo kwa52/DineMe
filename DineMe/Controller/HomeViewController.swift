@@ -58,6 +58,9 @@ class HomeViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
         present(placePicker, animated: true, completion: nil)
     }
     
+    // ***************************************
+    // MARK: - Picker View Data Source Methods
+    
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
@@ -67,14 +70,14 @@ class HomeViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return categories?[row].title
+        return categories?[row].title ?? "Add a category at Your Restaurant"
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         pickerValue = categories?[row].title
-        print("Selected Category: \(pickerValue!)")
     }
     
+    // Pop up alert for adding restaurant to a selected category
     func restaurantPickerView(withRestaurant newRestaurant: GMSPlace) {
         let vc = UIViewController()
         vc.preferredContentSize = CGSize(width: 250,height: 250)
@@ -83,7 +86,7 @@ class HomeViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
         pickerView.delegate = self
         pickerView.dataSource = self
         vc.view.addSubview(pickerView)
-        let editRadiusAlert = UIAlertController(title: "Choose distance", message: "", preferredStyle: .alert)
+        let editRadiusAlert = UIAlertController(title: "Choose Category", message: "", preferredStyle: .alert)
         editRadiusAlert.setValue(vc, forKey: "contentViewController")
         
         editRadiusAlert.addAction(UIAlertAction(title: "Add", style: .default) { (action) in
@@ -106,18 +109,10 @@ class HomeViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
     
     // Pop up alert to add new restaurant to the archive after selected from Place Picker
     func addRestaurantAlert(withRestaurant newRestaurant: GMSPlace) {
-//        var textInput = UITextField()
         let alert = UIAlertController(title: "New Restaurant", message: "select a category and press Add", preferredStyle: .alert)
-        
-//        alert.addTextField { (textField) in
-//            textField.placeholder = "Please match category name"
-//            textInput = textField
-//        }
-        
         let action = UIAlertAction(title: "Add", style: .default) { (action) in
             self.addNewRestaurant(toCategory: self.pickerValue!, withNewRestaurant: newRestaurant)
         }
-        
         alert.addAction(action)
         present(alert, animated: true) {
             alert.view.superview?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.alertControllerBackgroundTapped)))
@@ -132,7 +127,6 @@ class HomeViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
     
     // Write new added restaurant into the database
     func addNewRestaurant(toCategory category: String, withNewRestaurant pickedRestaurant: GMSPlace) {
-        
         // get the category object which name matches what user typed in the UIAlert text field
         if let selectedCategory = realm.object(ofType: Category.self, forPrimaryKey: category) {
             do {
@@ -168,21 +162,15 @@ extension HomeViewController: GMSPlacePickerViewControllerDelegate, CLLocationMa
     func placePicker(_ viewController: GMSPlacePickerViewController, didPick place: GMSPlace) {
         // Dismiss the place picker, as it cannot dismiss itself.
         viewController.dismiss(animated: true, completion: nil)
-        
         print("Place name \(place.name)")
         print("Place address \(String(describing: place.formattedAddress))")
         print("Place attributions \(String(describing: place.attributions))")
-//        pickerView.dataSource = self
-//        pickerView.delegate = self
-//        pickerView.isHidden = false
         restaurantPickerView(withRestaurant: place)
     }
     
     func placePickerDidCancel(_ viewController: GMSPlacePickerViewController) {
         // Dismiss the place picker, as it cannot dismiss itself.
         viewController.dismiss(animated: true, completion: nil)
-        
-        print("No place selected")
     }
     
     // ********************************
@@ -209,8 +197,6 @@ extension HomeViewController: GMSPlacePickerViewControllerDelegate, CLLocationMa
         Alamofire.request(finalURL).responseJSON { (response) in
             if response.result.isSuccess {
                 let resultJSON : JSON = JSON(response.result.value!)
-//                print("JSON: \(resultJSON)")
-                
                 let returnAddress = resultJSON["results"][0]["formatted_address"]
                 print("Returned Address: \(returnAddress)")
                 self.currentAddress = returnAddress.stringValue

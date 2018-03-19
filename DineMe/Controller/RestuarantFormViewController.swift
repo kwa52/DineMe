@@ -101,7 +101,7 @@ class RestaurantFormViewController: FormViewController {
             updateStyle(with: newStyle)
         }
         if let newAddress = addressInput {
-            updateStyle(with: newAddress)
+            updateAddress(with: newAddress)
         }
     }
     

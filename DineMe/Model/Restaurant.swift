@@ -19,11 +19,12 @@ class Restaurant: Object {
     @objc dynamic var dateCreated : Date?
     var parent = LinkingObjects(fromType: Category.self, property: "restaurants")    
     
-    convenience required init(name: String, cuisine: String, style: String) {
+    convenience required init(name: String, cuisine: String, style: String, address: String) {
         self.init()
         self.name = name
         self.cuisine = cuisine
         self.style = style
+        self.address = address
         dateCreated = Date()
     }
 }

@@ -52,7 +52,7 @@ class RestaurantTableViewController: UITableViewController {
         formatDate = formatter.string(from: (restaurants?[indexPath.row].dateCreated)!)
         
         cell.textLabel?.text = restaurants?[indexPath.row].name
-        cell.detailTextLabel?.text = formatDate
+        cell.detailTextLabel?.text = restaurants?[indexPath.row].address ?? "No address exists"
         
         cell.delegate = self
 
@@ -103,6 +103,7 @@ class RestaurantTableViewController: UITableViewController {
         let nameTextField = alert.addTextField("Restaurant Name")
         let cuisineTextField = alert.addTextField("Enter type of cuisine")
         let styleTextField = alert.addTextField("Enter style")
+        let addressTextField = alert.addTextField("Enter address")
         
         alert.addButton("Add") {
             
@@ -110,7 +111,8 @@ class RestaurantTableViewController: UITableViewController {
                 let newRestaurant = Restaurant(
                     name: nameTextField.text!,
                     cuisine: cuisineTextField.text!,
-                    style: styleTextField.text!
+                    style: styleTextField.text!,
+                    address: addressTextField.text!
                 )
                 do {
                     try self.realm.write {
