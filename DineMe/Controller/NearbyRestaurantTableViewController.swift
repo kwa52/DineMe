@@ -12,6 +12,7 @@ import CoreLocation
 import Alamofire
 import SwiftyJSON
 import GooglePlaces
+import SVProgressHUD
 
 class NearbyRestaurantTableViewController: UITableViewController {
 
@@ -25,17 +26,13 @@ class NearbyRestaurantTableViewController: UITableViewController {
     var currentLocation: String? {
         didSet {
             currentLocation = currentLocation!.components(separatedBy: " ").joined(separator: "%20")
-            print("Current Address is \(currentLocation)")
-            
-            
+            print("Current Address is \(String(describing: currentLocation))")
         }
     }
     var destinationLocation: String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        placesClient = GMSPlacesClient.shared()
-//        setCurrentLocation()
         loadCategory()
         createFilteredDataToDisplay()
     }
@@ -60,14 +57,14 @@ class NearbyRestaurantTableViewController: UITableViewController {
                         Alamofire.request(finalRequestURL).responseJSON { (response) in
                             if response.result.isSuccess {
                                 let resultJSON : JSON = JSON(response.result.value!)
-                                print("JSON: \(resultJSON)") // serialized json response
+//                                print("JSON: \(resultJSON)") // serialized json response
                                 
                                 // convert the value in seconds to minutes
                                 let travelTime = resultJSON["rows"][0]["elements"][0]["duration"]["value"].intValue / 60
                                 print("It will take \(travelTime) minutes to get to \(String(describing: thisRestaurant.name!))")
                                 
                                 // add this restaurant for display
-                                if travelTime < 10 {
+                                if travelTime <= 10 {
                                     let categoryExistsForDisplay = self.categoriesToDisplay.contains { $0.title == categoryToDisplay.title }
                                     
                                     do {
@@ -78,18 +75,17 @@ class NearbyRestaurantTableViewController: UITableViewController {
                                         print(error)
                                     }
                                     
+                                    // decide if a new category should be added for display
                                     if categoryExistsForDisplay {
                                         if let first = self.categoriesToDisplay.first(where: { $0.title == categoryToDisplay.title }) {
                                             first.restaurants.append(thisRestaurant)
                                             self.tableView.reloadData()
                                         }
-                                        print("Add new restaurant to existed category \(categoryToDisplay.title) for display")
                                     }
                                     else {
                                         categoryToDisplay.restaurants.append(thisRestaurant)
                                         self.categoriesToDisplay.append(categoryToDisplay)
                                         self.tableView.reloadData()
-                                        print("Add new category \(categoryToDisplay.title) to display")
                                     }
                                 }
                             }
@@ -135,36 +131,6 @@ class NearbyRestaurantTableViewController: UITableViewController {
         cell.detailTextLabel?.text = "\(thisRestaurant.travelTime) minutes"
         
         return cell
-    }
-    
-    // *****************************
-    // MARK: - Google Places Methods
-    
-    func setCurrentLocation() {
-        placesClient.currentPlace(callback: { (placeLikelihooodList, error) -> Void in
-            if let error = error {
-                print("Pick Place error: \(error.localizedDescription)")
-                return
-            }
-            
-            var nameLabel: String?
-            var addressLabel: String?
-            
-            nameLabel = "No current place"
-            addressLabel = ""
-            
-            if let placeLikelihoodList = placeLikelihooodList {
-                let place = placeLikelihoodList.likelihoods.first?.place
-                if let place = place {
-                    nameLabel = place.name
-                    self.currentLocation = place.name
-                    addressLabel = place.formattedAddress//?.components(separatedBy: ", ").joined(separator: "\n")
-                }
-            }
-            print("Current Location Set: \(self.currentLocation)")
-            print("Name Label: \(String(describing: nameLabel))")
-            print("Address Label: \(String(describing: addressLabel))")
-        })
     }
     
     func placeAutocomplete() {

@@ -247,9 +247,9 @@
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="8Cr-Ac-MOy"/>
                                     <barButtonItem style="plain" id="ZcF-rl-3Op">
                                         <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="wAY-cJ-Opi">
-                                            <rect key="frame" x="38.5" y="7" width="84" height="30"/>
+                                            <rect key="frame" x="23.5" y="7" width="134" height="30"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <state key="normal" title="Place Picker"/>
+                                            <state key="normal" title="Search"/>
                                             <connections>
                                                 <action selector="pickerPressed:" destination="TA2-De-pjv" eventType="touchUpInside" id="IGI-yh-CQQ"/>
                                             </connections>
@@ -262,7 +262,7 @@
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="qmZ-0O-Do8"/>
-                                    <barButtonItem title="My Restarants" id="FjH-VO-URA">
+                                    <barButtonItem title="My Restaurants" id="FjH-VO-URA">
                                         <connections>
                                             <segue destination="s6q-xr-Q6w" kind="show" identifier="gotoCategory" id="Hee-CF-P6n"/>
                                         </connections>
@@ -271,10 +271,10 @@
                                 </items>
                             </toolbar>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YaL-Ta-hcz">
-                                <rect key="frame" x="99" y="298" width="177" height="71"/>
+                                <rect key="frame" x="101" y="298" width="174" height="71"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="50"/>
-                                <state key="normal" title="Look Up"/>
+                                <state key="normal" title="Dine Me"/>
                                 <connections>
                                     <action selector="lookUpButtonPressed:" destination="TA2-De-pjv" eventType="touchUpInside" id="JCE-pR-l5Y"/>
                                 </connections>
@@ -290,7 +290,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Lis-U1-NVP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1236" y="136"/>
+            <point key="canvasLocation" x="1236" y="135.38230884557723"/>
         </scene>
         <!--Find Restaurants-->
         <scene sceneID="jcJ-8P-QYJ">

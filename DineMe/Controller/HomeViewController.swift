@@ -12,8 +12,9 @@ import GooglePlacePicker
 import RealmSwift
 import Alamofire
 import SwiftyJSON
+import SVProgressHUD
 
-class HomeViewController: UIViewController {
+class HomeViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
     let geocodeKey = "AIzaSyCt05eIT5U9_VWFQkwYTFmTme5z8IJ5VEg"
     let baseURL = "https://maps.googleapis.com/maps/api/geocode/json?latlng="
@@ -21,10 +22,13 @@ class HomeViewController: UIViewController {
     let locationManager = CLLocationManager()
 
     var currentAddress: String?
+    var categories: Results<Category>?
+    var pickerValue: String!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    
+        loadCategory()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -54,18 +58,64 @@ class HomeViewController: UIViewController {
         present(placePicker, animated: true, completion: nil)
     }
     
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return categories?.count ?? 0
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return categories?[row].title
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        pickerValue = categories?[row].title
+        print("Selected Category: \(pickerValue!)")
+    }
+    
+    func restaurantPickerView(withRestaurant newRestaurant: GMSPlace) {
+        let vc = UIViewController()
+        vc.preferredContentSize = CGSize(width: 250,height: 250)
+        let pickerView = UIPickerView(frame: CGRect(x: 0, y: 0, width: 250, height: 250))
+        pickerView.selectRow(1, inComponent: 1, animated: true)
+        pickerView.delegate = self
+        pickerView.dataSource = self
+        vc.view.addSubview(pickerView)
+        let editRadiusAlert = UIAlertController(title: "Choose distance", message: "", preferredStyle: .alert)
+        editRadiusAlert.setValue(vc, forKey: "contentViewController")
+        
+        editRadiusAlert.addAction(UIAlertAction(title: "Add", style: .default) { (action) in
+            // only proceed if category list is not empty
+            if self.categories?.count != 0{
+                // check if the picker value is nil since the picker default value is nil if not yet scrolled
+                if let pickerValue = self.pickerValue {
+                    self.addNewRestaurant(toCategory: pickerValue, withNewRestaurant: newRestaurant)
+                }
+                // if user tapped "Add" without scrolling then set the category to the first of the list
+                else {
+                    self.pickerValue = self.categories![0].title
+                    self.addNewRestaurant(toCategory: self.pickerValue, withNewRestaurant: newRestaurant)
+                }
+            }
+        })
+        editRadiusAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        self.present(editRadiusAlert, animated: true)
+    }
+    
     // Pop up alert to add new restaurant to the archive after selected from Place Picker
     func addRestaurantAlert(withRestaurant newRestaurant: GMSPlace) {
-        var textInput = UITextField()
-        let alert = UIAlertController(title: "New Restaurant", message: "", preferredStyle: .alert)
+//        var textInput = UITextField()
+        let alert = UIAlertController(title: "New Restaurant", message: "select a category and press Add", preferredStyle: .alert)
         
-        alert.addTextField { (textField) in
-            textField.placeholder = "Please match category name"
-            textInput = textField
-        }
+//        alert.addTextField { (textField) in
+//            textField.placeholder = "Please match category name"
+//            textInput = textField
+//        }
         
         let action = UIAlertAction(title: "Add", style: .default) { (action) in
-            self.addNewRestaurant(toCategory: textInput.text!, withNewRestaurant: newRestaurant)
+            self.addNewRestaurant(toCategory: self.pickerValue!, withNewRestaurant: newRestaurant)
         }
         
         alert.addAction(action)
@@ -101,6 +151,11 @@ class HomeViewController: UIViewController {
         }
     }
     
+    // Load Categories
+    func loadCategory() {
+        categories = realm.objects(Category.self)
+    }
+    
 }
 
 extension HomeViewController: GMSPlacePickerViewControllerDelegate, CLLocationManagerDelegate {
@@ -117,7 +172,10 @@ extension HomeViewController: GMSPlacePickerViewControllerDelegate, CLLocationMa
         print("Place name \(place.name)")
         print("Place address \(String(describing: place.formattedAddress))")
         print("Place attributions \(String(describing: place.attributions))")
-        addRestaurantAlert(withRestaurant: place)
+//        pickerView.dataSource = self
+//        pickerView.delegate = self
+//        pickerView.isHidden = false
+        restaurantPickerView(withRestaurant: place)
     }
     
     func placePickerDidCancel(_ viewController: GMSPlacePickerViewController) {
@@ -133,7 +191,7 @@ extension HomeViewController: GMSPlacePickerViewControllerDelegate, CLLocationMa
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let location: CLLocation = locations.last!
-        print("Current Location: \(location)")
+//        print("Current Location: \(location)")
         
         if location.horizontalAccuracy > 0 {
             locationManager.stopUpdatingLocation()
@@ -151,7 +209,7 @@ extension HomeViewController: GMSPlacePickerViewControllerDelegate, CLLocationMa
         Alamofire.request(finalURL).responseJSON { (response) in
             if response.result.isSuccess {
                 let resultJSON : JSON = JSON(response.result.value!)
-                print("JSON: \(resultJSON)")
+//                print("JSON: \(resultJSON)")
                 
                 let returnAddress = resultJSON["results"][0]["formatted_address"]
                 print("Returned Address: \(returnAddress)")
