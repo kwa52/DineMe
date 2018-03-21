@@ -20,15 +20,18 @@ class CategoryTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-       
-//        tableView.separatorStyle = .none
-        print("FILE PATH --- ", realmFolderPath)
-        // tapRecognizer, placed in viewDidLoad
-        let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(longPress))
-        self.view.addGestureRecognizer(longPressRecognizer)
         loadData()
+        print("FILE PATH --- ", realmFolderPath)
+//        // tapRecognizer, placed in viewDidLoad
+//        let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(longPress))
+//        self.view.addGestureRecognizer(longPressRecognizer)
+        
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        tableView.reloadData()
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

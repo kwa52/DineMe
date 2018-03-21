@@ -32,14 +32,10 @@ class HomeViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadCategory()
-        
-//        let title = NSAttributedString(string: "Search")
-//        searchButton.setAttributedTitle(title, for: .normal)
-
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        loadCategory()
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestWhenInUseAuthorization()
@@ -127,6 +123,14 @@ class HomeViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
         }
     }
     
+    // Alert when user wants to add a new restaurant without an existing category created
+    func emptyCategoryAlert() {
+        let alert = UIAlertController(title: "Empty Category", message: "please create a new category", preferredStyle: .alert)
+        let action = UIAlertAction(title: "OK", style: .default)
+        alert.addAction(action)
+        self.present(alert, animated: true, completion: nil)
+    }
+    
     // For dismissing UIAlert after add button pressed
     @objc func alertControllerBackgroundTapped()
     {
@@ -173,7 +177,12 @@ extension HomeViewController: GMSPlacePickerViewControllerDelegate, CLLocationMa
         print("Place name \(place.name)")
         print("Place address \(String(describing: place.formattedAddress))")
         print("Place attributions \(String(describing: place.attributions))")
-        restaurantPickerView(withRestaurant: place)
+        if ((categories?.count)! > 0) {
+            restaurantPickerView(withRestaurant: place)
+        }
+        else {
+            emptyCategoryAlert()
+        }
     }
     
     func placePickerDidCancel(_ viewController: GMSPlacePickerViewController) {
