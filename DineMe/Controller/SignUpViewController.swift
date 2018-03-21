@@ -15,7 +15,6 @@ class SignUpViewController: UIViewController {
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var confirmPasswordTextField: UITextField!
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -24,11 +23,7 @@ class SignUpViewController: UIViewController {
         view.addGestureRecognizer(tap)
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
+    // Action for sign up button
     @IBAction func signUpButtonPressed(_ sender: UIButton) {
     
         guard let email = emailTextField.text else {fatalError()}
@@ -50,6 +45,7 @@ class SignUpViewController: UIViewController {
         }
     }
     
+    // Dismiss keyboard
     @objc func dismissKeyboard() {
         view.endEditing(true)
     }

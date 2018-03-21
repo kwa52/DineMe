@@ -291,9 +291,6 @@
                     </view>
                     <navigationItem key="navigationItem" title="Home" id="OBd-D1-bwu"/>
                     <connections>
-                        <outlet property="dineMeButton" destination="YaL-Ta-hcz" id="JOC-Nb-ofX"/>
-                        <outlet property="searchButton" destination="wAY-cJ-Opi" id="j7O-ei-bpq"/>
-                        <outlet property="yourRestaurantsButton" destination="ReL-Ro-34e" id="7WU-wJ-dAY"/>
                         <segue destination="VZe-v6-dVd" kind="show" identifier="goToNearby" id="iaT-fW-ucI"/>
                     </connections>
                 </viewController>

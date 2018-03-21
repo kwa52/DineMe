@@ -24,10 +24,7 @@ class LogInViewController: UIViewController {
         view.addGestureRecognizer(tap)
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
+   // Action for sign in button
     @IBAction func signInButtonPressed(_ sender: UIButton) {
         
         guard let email = emailTextField.text else {fatalError()}

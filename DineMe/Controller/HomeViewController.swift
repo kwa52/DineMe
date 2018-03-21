@@ -24,16 +24,14 @@ class HomeViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
 
     var currentAddress: String?
     var categories: Results<Category>?
+    // the chosen category for picker view
     var pickerValue: String!
-    
-    @IBOutlet weak var dineMeButton: UIButton!
-    @IBOutlet weak var searchButton: UIButton!
-    @IBOutlet weak var yourRestaurantsButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
     }
     
+    // Called everytime when this view is about to appear (add to the controller stack or dismiss from other view)
     override func viewWillAppear(_ animated: Bool) {
         loadCategory()
         locationManager.delegate = self
@@ -43,6 +41,7 @@ class HomeViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
         locationManager.startUpdatingLocation()
     }
     
+    // Action for fetching nearby restaurants
     @IBAction func lookUpButtonPressed(_ sender: Any) {
         performSegue(withIdentifier: "goToNearby", sender: self)
     }
@@ -54,6 +53,7 @@ class HomeViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
         }
     }
     
+    // Go to Place Picker
     @IBAction func pickerPressed(_ sender: Any) {
         let config = GMSPlacePickerConfig(viewport: nil)
         let placePicker = GMSPlacePickerViewController(config: config)
@@ -137,7 +137,7 @@ class HomeViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
         self.dismiss(animated: true, completion: nil)
     }
     
-    // Write new added restaurant into the database
+    // Write newly added restaurant from Place Picker into the database
     func addNewRestaurant(toCategory category: String, withNewRestaurant pickedRestaurant: GMSPlace) {
         // get the category object which name matches what user typed in the UIAlert text field
         if let selectedCategory = realm.object(ofType: Category.self, forPrimaryKey: category) {
@@ -177,6 +177,8 @@ extension HomeViewController: GMSPlacePickerViewControllerDelegate, CLLocationMa
         print("Place name \(place.name)")
         print("Place address \(String(describing: place.formattedAddress))")
         print("Place attributions \(String(describing: place.attributions))")
+        
+        // show different alert view based on if category list is empty
         if ((categories?.count)! > 0) {
             restaurantPickerView(withRestaurant: place)
         }

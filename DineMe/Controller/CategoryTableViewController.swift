@@ -28,15 +28,11 @@ class CategoryTableViewController: UITableViewController {
         
     }
 
+    // Update restaurant count of each category to display at subtitles
     override func viewWillAppear(_ animated: Bool) {
         tableView.reloadData()
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
     //
     // MARK: - Table View Data Source Methods
     //
@@ -142,7 +138,6 @@ class CategoryTableViewController: UITableViewController {
     //
     
     func loadData() {
-        
         categories = realm.objects(Category.self)
         tableView.reloadData()
     }
@@ -214,10 +209,8 @@ extension CategoryTableViewController: SwipeTableViewCellDelegate {
         
         // customize the action appearance
         deleteAction.image = UIImage(named: "delete-icon")
-        moreAction.image = UIImage(named: "more-icon")
-        moreAction.hidesWhenSelected = true
         
-        return [deleteAction, moreAction]
+        return [deleteAction]
     }
     
     func tableView(_ tableView: UITableView, editActionsOptionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> SwipeTableOptions {
