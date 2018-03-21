@@ -106,7 +106,6 @@ class RestaurantTableViewController: UITableViewController {
         let addressTextField = alert.addTextField("Enter address")
         
         alert.addButton("Add") {
-            
             if !(nameTextField.text?.isEmpty)! {
                 let newRestaurant = Restaurant(
                     name: nameTextField.text!,
@@ -123,10 +122,9 @@ class RestaurantTableViewController: UITableViewController {
                     print(error)
                 }
             }
-            
             self.tableView.reloadData()
         }
-        alert.showEdit("New Restaurant", subTitle: "can be modified later")
+        alert.showEdit("New Restaurant", subTitle: "empty address will affect results")
     }
     
     //************************

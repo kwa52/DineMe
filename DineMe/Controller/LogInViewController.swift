@@ -44,9 +44,6 @@ class LogInViewController: UIViewController {
         
     }
     
-    @IBAction func signUpButtonPressed(_ sender: UIButton) {
-    }
-    
     @objc func dismissKeyboard() {
         view.endEditing(true)
     }

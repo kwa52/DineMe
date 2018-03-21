@@ -34,8 +34,8 @@ class HomeViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
         super.viewDidLoad()
         loadCategory()
         
-        let title = NSAttributedString(string: "Search")
-        searchButton.setAttributedTitle(title, for: .normal)
+//        let title = NSAttributedString(string: "Search")
+//        searchButton.setAttributedTitle(title, for: .normal)
 
     }
     

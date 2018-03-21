@@ -100,7 +100,7 @@
                                             <constraint firstAttribute="height" constant="48" id="zDO-mO-WJ2"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="40"/>
-                                        <nil key="textColor"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
@@ -123,11 +123,10 @@
                                                 </constraints>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="23"/>
                                                 <state key="normal" title="Sign up">
-                                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="signUpButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="r8g-mU-WHr"/>
-                                                    <segue destination="T2r-dT-iBI" kind="show" id="Th3-Pf-hwK"/>
+                                                    <segue destination="T2r-dT-iBI" kind="show" id="cyj-VY-hSE"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OoZ-PO-Xcs">
@@ -138,11 +137,11 @@
                                                 </constraints>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="23"/>
                                                 <state key="normal" title="Sign in">
-                                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
                                                     <action selector="signInButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="paj-m0-AC1"/>
-                                                    <segue destination="TA2-De-pjv" kind="show" id="0SM-bS-uvZ"/>
+                                                    <segue destination="TA2-De-pjv" kind="show" id="GZA-6B-Kaq"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -190,7 +189,6 @@
                     <connections>
                         <outlet property="emailTextField" destination="B8D-Gh-5fJ" id="2aq-fv-GUN"/>
                         <outlet property="passwordTextField" destination="Wb6-z7-IMD" id="QTb-4y-TkW"/>
-                        <segue destination="TA2-De-pjv" kind="show" id="geg-Sz-hFf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -256,10 +254,10 @@
                                 <items>
                                     <barButtonItem style="plain" id="ZcF-rl-3Op">
                                         <button key="customView" opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="wAY-cJ-Opi">
-                                            <rect key="frame" x="16" y="0.0" width="170" height="44"/>
+                                            <rect key="frame" x="16" y="5.5" width="170" height="33"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" name=".SFNSText" family=".SF NS Text" pointSize="1"/>
-                                            <state key="normal" title="Search" image="icons8-address-100"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                            <state key="normal" image="icons8-address-100"/>
                                             <connections>
                                                 <action selector="pickerPressed:" destination="TA2-De-pjv" eventType="touchUpInside" id="IGI-yh-CQQ"/>
                                             </connections>
@@ -277,7 +275,7 @@
                                         </button>
                                     </barButtonItem>
                                 </items>
-                                <color key="barTintColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="barTintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </toolbar>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YaL-Ta-hcz">
                                 <rect key="frame" x="75" y="220" width="224" height="226"/>
@@ -303,48 +301,6 @@
             </objects>
             <point key="canvasLocation" x="1236" y="135.38230884557723"/>
         </scene>
-        <!--Find Restaurants-->
-        <scene sceneID="jcJ-8P-QYJ">
-            <objects>
-                <viewController id="G7h-HJ-SgN" customClass="MapViewController" customModule="DineMe" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="Xym-3l-0ph">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mPc-93-RBu" customClass="GMSMapView">
-                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </view>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <viewLayoutGuide key="safeArea" id="ZzK-ud-RB9"/>
-                    </view>
-                    <toolbarItems/>
-                    <navigationItem key="navigationItem" title="Find Restaurants" id="FW8-X4-xhF">
-                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="0u0-Wz-214">
-                            <connections>
-                                <action selector="autocompleteUIButtonPressed:" destination="G7h-HJ-SgN" id="rua-Tr-8Vm"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
-                    <connections>
-                        <outlet property="mapView" destination="mPc-93-RBu" id="8ZW-SN-FDZ"/>
-                        <outlet property="searchDisplayController" destination="dwX-Vf-95k" id="a69-TQ-XlH"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="x5H-Rk-DRI" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <searchDisplayController id="dwX-Vf-95k">
-                    <connections>
-                        <outlet property="delegate" destination="G7h-HJ-SgN" id="Cyk-tf-OAW"/>
-                        <outlet property="searchContentsController" destination="G7h-HJ-SgN" id="m5Y-nB-0Fp"/>
-                        <outlet property="searchResultsDataSource" destination="G7h-HJ-SgN" id="4mV-If-hiO"/>
-                        <outlet property="searchResultsDelegate" destination="G7h-HJ-SgN" id="u4g-Xz-qsD"/>
-                    </connections>
-                </searchDisplayController>
-            </objects>
-            <point key="canvasLocation" x="1236" y="1056.5217391304348"/>
-        </scene>
         <!--Sign up-->
         <scene sceneID="gY0-J0-bVT">
             <objects>
@@ -355,19 +311,19 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jzi-OH-ec3" userLabel="Background">
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" red="0.46202266219999999" green="0.83828371759999998" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OQb-N3-1vz" userLabel="Top Container">
                                 <rect key="frame" x="0.0" y="64" width="375" height="205"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DineMe" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jaq-uJ-C0N">
-                                        <rect key="frame" x="123" y="79" width="129" height="48"/>
+                                        <rect key="frame" x="123" y="78.5" width="129" height="48"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="129" id="0hT-SM-xSR"/>
                                             <constraint firstAttribute="height" constant="48" id="uSP-tk-6Ci"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="40"/>
-                                        <nil key="textColor"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
@@ -410,13 +366,15 @@
                                 <rect key="frame" x="0.0" y="397.5" width="375" height="269.5"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zDP-9P-dMA">
-                                        <rect key="frame" x="150" y="115" width="74" height="40"/>
+                                        <rect key="frame" x="150" y="115.5" width="74" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="74" id="XeR-t7-X1T"/>
                                             <constraint firstAttribute="height" constant="40" id="aBU-PA-OhJ"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="23"/>
-                                        <state key="normal" title="Sign up"/>
+                                        <state key="normal" title="Sign up">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
                                         <connections>
                                             <action selector="signUpButtonPressed:" destination="T2r-dT-iBI" eventType="touchUpInside" id="2lv-c5-B0m"/>
                                         </connections>
@@ -606,6 +564,6 @@
         <image name="icons8-home-page-100" width="33" height="33"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="qKQ-t8-kUo"/>
+        <segue reference="GZA-6B-Kaq"/>
     </inferredMetricsTieBreakers>
 </document>
