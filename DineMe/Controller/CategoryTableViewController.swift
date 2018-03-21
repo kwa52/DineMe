@@ -23,7 +23,9 @@ class CategoryTableViewController: UITableViewController {
        
 //        tableView.separatorStyle = .none
         print("FILE PATH --- ", realmFolderPath)
-        
+        // tapRecognizer, placed in viewDidLoad
+        let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(longPress))
+        self.view.addGestureRecognizer(longPressRecognizer)
         loadData()
     }
 
@@ -77,12 +79,6 @@ class CategoryTableViewController: UITableViewController {
         return false
     }
     
-    override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        
-//        categories?.remove(at: sourceIndexPath.row)
-//        categories?.insert(movedObject, at: destinationIndexPath.row)
-        // To check for correctness enable: self.tableView.reloadData()
-    }
     
     // Add new category
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
@@ -120,6 +116,20 @@ class CategoryTableViewController: UITableViewController {
     @objc func alertControllerBackgroundTapped()
     {
         self.dismiss(animated: true, completion: nil)
+    }
+    
+    //Called, when long press occurred
+    @objc func longPress(longPressGestureRecognizer: UILongPressGestureRecognizer) {
+        
+        if longPressGestureRecognizer.state == UIGestureRecognizerState.began {
+            
+            let touchPoint = longPressGestureRecognizer.location(in: self.view)
+            if let indexPath = tableView.indexPathForRow(at: touchPoint) {
+                
+                // your code here, get the row for the indexPath or do whatever you want
+                print("long pressed")
+            }
+        }
     }
     
     //

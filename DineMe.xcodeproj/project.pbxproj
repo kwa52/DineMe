@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		350F7EAC206089B200CDC579 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 350F7EAB206089B200CDC579 /* Assets.xcassets */; };
 		351D175C2055E8BC003C0269 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351D175B2055E8BC003C0269 /* HomeViewController.swift */; };
 		351D175E20572383003C0269 /* NearbyRestaurantTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351D175D20572383003C0269 /* NearbyRestaurantTableViewController.swift */; };
 		3546B2ED2048A2630054F9BB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3546B2EC2048A2630054F9BB /* AppDelegate.swift */; };
@@ -18,7 +19,6 @@
 		3546B3292048F7580054F9BB /* CategoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3546B3282048F7580054F9BB /* CategoryTableViewController.swift */; };
 		3546B32B2049FC420054F9BB /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3546B32A2049FC420054F9BB /* Category.swift */; };
 		3546B32D204A165E0054F9BB /* Restaurant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3546B32C204A165E0054F9BB /* Restaurant.swift */; };
-		3546B32F204DD40E0054F9BB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3546B32E204DD40E0054F9BB /* Assets.xcassets */; };
 		3546B331204E00650054F9BB /* RestaurantTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3546B330204E00650054F9BB /* RestaurantTableViewController.swift */; };
 		35A5F6BC205089D0007C3164 /* RestuarantFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35A5F6BB205089D0007C3164 /* RestuarantFormViewController.swift */; };
 		35A5F6BE2051D5B5007C3164 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35A5F6BD2051D5B5007C3164 /* MapViewController.swift */; };
@@ -26,6 +26,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		350F7EAB206089B200CDC579 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		351D175B2055E8BC003C0269 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		351D175D20572383003C0269 /* NearbyRestaurantTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyRestaurantTableViewController.swift; sourceTree = "<group>"; };
 		3546B2E92048A2620054F9BB /* DineMe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DineMe.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -39,7 +40,6 @@
 		3546B3282048F7580054F9BB /* CategoryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryTableViewController.swift; sourceTree = "<group>"; };
 		3546B32A2049FC420054F9BB /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		3546B32C204A165E0054F9BB /* Restaurant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Restaurant.swift; sourceTree = "<group>"; };
-		3546B32E204DD40E0054F9BB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3546B330204E00650054F9BB /* RestaurantTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantTableViewController.swift; sourceTree = "<group>"; };
 		35A5F6BB205089D0007C3164 /* RestuarantFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestuarantFormViewController.swift; sourceTree = "<group>"; };
 		35A5F6BD2051D5B5007C3164 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
@@ -137,7 +137,7 @@
 		3546B3032048A7780054F9BB /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				3546B32E204DD40E0054F9BB /* Assets.xcassets */,
+				350F7EAB206089B200CDC579 /* Assets.xcassets */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -214,7 +214,7 @@
 			files = (
 				3546B2F72048A2630054F9BB /* LaunchScreen.storyboard in Resources */,
 				3546B3272048F2E10054F9BB /* GoogleService-Info.plist in Resources */,
-				3546B32F204DD40E0054F9BB /* Assets.xcassets in Resources */,
+				350F7EAC206089B200CDC579 /* Assets.xcassets in Resources */,
 				3546B2F22048A2630054F9BB /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -237,6 +237,7 @@
 				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/SCLAlertView/SCLAlertView.framework",
 				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftIcons/SwiftIcons.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 				"${BUILT_PRODUCTS_DIR}/SwipeCellKit/SwipeCellKit.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
@@ -252,6 +253,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SCLAlertView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftIcons.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwipeCellKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",

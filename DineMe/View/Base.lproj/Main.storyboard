@@ -22,6 +22,11 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Pe3-Cm-iUs">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="barTintColor" red="0.0" green="0.32852089410000002" blue="0.57488495110000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </textAttributes>
                     </navigationBar>
                     <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="MQA-Bl-ZQt">
                         <autoresizingMask key="autoresizingMask"/>
@@ -44,6 +49,7 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nCY-8x-hOt" userLabel="Background">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" red="0.46202266219999999" green="0.83828371759999998" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IIM-hq-hXP" userLabel="Middle Container">
                                 <rect key="frame" x="30" y="287" width="315" height="93"/>
@@ -88,7 +94,7 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="223"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DineMe" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oxc-cx-fSt">
-                                        <rect key="frame" x="123" y="87" width="129" height="48"/>
+                                        <rect key="frame" x="123" y="87.5" width="129" height="48"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="129" id="Upr-u7-Afa"/>
                                             <constraint firstAttribute="height" constant="48" id="zDO-mO-WJ2"/>
@@ -107,7 +113,7 @@
                                 <rect key="frame" x="0.0" y="380" width="375" height="287"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9NS-n7-HxZ" userLabel="BottomInnerContainer">
-                                        <rect key="frame" x="67" y="104.5" width="240" height="77"/>
+                                        <rect key="frame" x="67" y="105" width="240" height="77"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l2d-Fa-lZP">
                                                 <rect key="frame" x="83" y="37" width="74" height="40"/>
@@ -116,7 +122,9 @@
                                                     <constraint firstAttribute="width" constant="74" id="XMD-gC-W3V"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="23"/>
-                                                <state key="normal" title="Sign up"/>
+                                                <state key="normal" title="Sign up">
+                                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                </state>
                                                 <connections>
                                                     <action selector="signUpButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="r8g-mU-WHr"/>
                                                     <segue destination="T2r-dT-iBI" kind="show" id="Th3-Pf-hwK"/>
@@ -129,14 +137,16 @@
                                                     <constraint firstAttribute="height" constant="40" id="LCK-JG-YJB"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="23"/>
-                                                <state key="normal" title="Sign in"/>
+                                                <state key="normal" title="Sign in">
+                                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                </state>
                                                 <connections>
                                                     <action selector="signInButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="paj-m0-AC1"/>
                                                     <segue destination="TA2-De-pjv" kind="show" id="0SM-bS-uvZ"/>
                                                 </connections>
                                             </button>
                                         </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" red="0.46202266219999999" green="0.83828371759999998" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstItem="l2d-Fa-lZP" firstAttribute="leading" secondItem="9NS-n7-HxZ" secondAttribute="leading" constant="83" id="15O-zM-yN6"/>
                                             <constraint firstItem="OoZ-PO-Xcs" firstAttribute="top" secondItem="9NS-n7-HxZ" secondAttribute="top" id="5eQ-jp-ngK"/>
@@ -244,47 +254,48 @@
                                 <rect key="frame" x="0.0" y="623" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <items>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="8Cr-Ac-MOy"/>
                                     <barButtonItem style="plain" id="ZcF-rl-3Op">
-                                        <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="wAY-cJ-Opi">
-                                            <rect key="frame" x="20.5" y="7" width="134" height="30"/>
+                                        <button key="customView" opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="wAY-cJ-Opi">
+                                            <rect key="frame" x="16" y="0.0" width="170" height="44"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <state key="normal" title="Search"/>
+                                            <fontDescription key="fontDescription" name=".SFNSText" family=".SF NS Text" pointSize="1"/>
+                                            <state key="normal" title="Search" image="icons8-address-100"/>
                                             <connections>
                                                 <action selector="pickerPressed:" destination="TA2-De-pjv" eventType="touchUpInside" id="IGI-yh-CQQ"/>
                                             </connections>
                                         </button>
                                     </barButtonItem>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="v3V-R0-IHm"/>
-                                    <barButtonItem title="Map" id="co6-lE-xyz">
-                                        <connections>
-                                            <segue destination="G7h-HJ-SgN" kind="show" id="uEI-9A-IF4"/>
-                                        </connections>
+                                    <barButtonItem style="plain" id="I8c-Rm-aJc">
+                                        <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="ReL-Ro-34e">
+                                            <rect key="frame" x="189" y="5.5" width="170" height="33"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="18"/>
+                                            <state key="normal" image="icons8-home-page-100"/>
+                                            <connections>
+                                                <segue destination="s6q-xr-Q6w" kind="show" id="5rH-j9-guu"/>
+                                            </connections>
+                                        </button>
                                     </barButtonItem>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="qmZ-0O-Do8"/>
-                                    <barButtonItem title="Your Restaurants" id="FjH-VO-URA">
-                                        <connections>
-                                            <segue destination="s6q-xr-Q6w" kind="show" identifier="gotoCategory" id="Hee-CF-P6n"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="Eet-so-YiC"/>
                                 </items>
+                                <color key="barTintColor" cocoaTouchSystemColor="darkTextColor"/>
                             </toolbar>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YaL-Ta-hcz">
-                                <rect key="frame" x="101" y="298" width="174" height="71"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YaL-Ta-hcz">
+                                <rect key="frame" x="75" y="220" width="224" height="226"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="50"/>
-                                <state key="normal" title="Dine Me"/>
+                                <state key="normal" title="Dine Me" image="food"/>
                                 <connections>
                                     <action selector="lookUpButtonPressed:" destination="TA2-De-pjv" eventType="touchUpInside" id="JCE-pR-l5Y"/>
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="0.46202266219999999" green="0.83828371759999998" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="8fM-Ti-nNE"/>
                     </view>
                     <navigationItem key="navigationItem" title="Home" id="OBd-D1-bwu"/>
                     <connections>
+                        <outlet property="dineMeButton" destination="YaL-Ta-hcz" id="JOC-Nb-ofX"/>
+                        <outlet property="searchButton" destination="wAY-cJ-Opi" id="j7O-ei-bpq"/>
+                        <outlet property="yourRestaurantsButton" destination="ReL-Ro-34e" id="7WU-wJ-dAY"/>
                         <segue destination="VZe-v6-dVd" kind="show" identifier="goToNearby" id="iaT-fW-ucI"/>
                     </connections>
                 </viewController>
@@ -350,7 +361,7 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="205"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DineMe" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jaq-uJ-C0N">
-                                        <rect key="frame" x="123" y="78.5" width="129" height="48"/>
+                                        <rect key="frame" x="123" y="79" width="129" height="48"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="129" id="0hT-SM-xSR"/>
                                             <constraint firstAttribute="height" constant="48" id="uSP-tk-6Ci"/>
@@ -399,7 +410,7 @@
                                 <rect key="frame" x="0.0" y="397.5" width="375" height="269.5"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zDP-9P-dMA">
-                                        <rect key="frame" x="150" y="115.5" width="74" height="40"/>
+                                        <rect key="frame" x="150" y="115" width="74" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="74" id="XeR-t7-X1T"/>
                                             <constraint firstAttribute="height" constant="40" id="aBU-PA-OhJ"/>
@@ -473,6 +484,7 @@
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Category" id="My9-5C-pgR">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="1vv-3a-UMG">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
                                 <action selector="addButtonPressed:" destination="s6q-xr-Q6w" id="guW-S1-hAI"/>
                             </connections>
@@ -533,6 +545,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Restaurants" id="GlX-pf-vOc">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="LFn-Cl-P8Z">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
                                 <action selector="addButtonPressed:" destination="8BR-Xk-jkl" id="vAa-DG-FBX"/>
                             </connections>
@@ -559,6 +572,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Title" id="jib-jK-59c">
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="lY3-FF-xVX">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
                                 <action selector="saveButtonPressed:" destination="bXn-a8-hUm" id="lYb-fC-Y6w"/>
                             </connections>
@@ -570,7 +584,12 @@
             <point key="canvasLocation" x="3785" y="135"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="food" width="512" height="512"/>
+        <image name="icons8-address-100" width="33" height="33"/>
+        <image name="icons8-home-page-100" width="33" height="33"/>
+    </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="geg-Sz-hFf"/>
+        <segue reference="qKQ-t8-kUo"/>
     </inferredMetricsTieBreakers>
 </document>

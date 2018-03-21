@@ -13,6 +13,7 @@ import RealmSwift
 import Alamofire
 import SwiftyJSON
 import SVProgressHUD
+import SwiftIcons
 
 class HomeViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
@@ -25,10 +26,17 @@ class HomeViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
     var categories: Results<Category>?
     var pickerValue: String!
     
+    @IBOutlet weak var dineMeButton: UIButton!
+    @IBOutlet weak var searchButton: UIButton!
+    @IBOutlet weak var yourRestaurantsButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         loadCategory()
+        
+        let title = NSAttributedString(string: "Search")
+        searchButton.setAttributedTitle(title, for: .normal)
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
