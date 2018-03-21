@@ -139,8 +139,6 @@ class RestaurantTableViewController: UITableViewController {
         restaurants = selectedCategory?.restaurants.sorted(byKeyPath: "dateCreated", ascending: false)
         tableView.reloadData()
     }
-    
-    
 }
 
 

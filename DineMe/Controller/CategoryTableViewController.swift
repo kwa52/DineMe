@@ -46,7 +46,9 @@ class CategoryTableViewController: UITableViewController {
     // ask data source to insert a cell at a row
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "categoryCell", for: indexPath) as! SwipeTableViewCell
+        let itemsCount = categories?[indexPath.row].restaurants.count
         cell.textLabel?.text = categories?[indexPath.row].title ?? "No categories added yet"
+        cell.detailTextLabel?.text = "\(itemsCount!) restaurants"
         
         cell.delegate = self
         
